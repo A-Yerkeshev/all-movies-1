@@ -1,16 +1,7 @@
-import $ from "jquery/dist/jquery.js";
 import { Component } from '@angular/core';
+import { APICommunicator } from './api.communicator';
 
-const omdbUrl: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
-let omdbResponse: object;
-
-$.ajax({
-  url: omdbUrl + 't=Taxi',
-  success: function(result) {
-    omdbResponse = result;
-    console.log(omdbResponse);
-  }
-})
+const Communicator = new APICommunicator;
 
 @Component({
   selector: 'app-root',
@@ -18,5 +9,7 @@ $.ajax({
   styleUrls: ['./app.component.css']
 })
 export class DataComponent {
-
+  call(param) {
+    Communicator.call(param);
+  }
 }
