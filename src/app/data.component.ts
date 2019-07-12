@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { APICommunicator } from './api.communicator';
 
-const Communicator = new APICommunicator;
+const apiCommunicator = new APICommunicator;
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ const Communicator = new APICommunicator;
   styleUrls: ['./app.component.css']
 })
 export class DataComponent {
-  call(param) {
-    Communicator.call(param);
+  click() {
+    console.log(apiCommunicator.loadFromDefaultsList(5))
   }
 }
