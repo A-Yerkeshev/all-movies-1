@@ -1,3 +1,7 @@
+// Module is responside for communication with the server, sending AJAX requests to it
+// and retreive the responce in TypeScript operatable format. API Communicator is used
+// by Data Component.
+
 import $ from "jquery/dist/jquery.js";
 
 // Function to send AJAX request to OMDb API
