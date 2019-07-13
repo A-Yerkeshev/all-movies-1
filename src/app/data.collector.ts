@@ -1,7 +1,6 @@
-// Component is responsible for collecting the data from JSON files and the server
+// Module is responsible for collecting the data from JSON files and the server
 // responses through usage of API Communicator. Data then transmitted to Controller Component.
 
-import { Component } from '@angular/core';
 import { APICommunicator } from './api.communicator';
 import data from "./movies.json"
 
@@ -24,6 +23,6 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-export class DataComponent {
+export class DataCollector {
 
 }
