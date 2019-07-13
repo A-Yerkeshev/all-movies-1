@@ -24,13 +24,6 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
 export class DataComponent {
-  click() {
-    console.log(apiCommunicator.loadFromTitlesList(defaultMoviesList, 2));
-  }
+
 }
