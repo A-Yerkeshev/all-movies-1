@@ -27,14 +27,14 @@ class APICommunicator {
   constructor() {
   }
   // Function to load movies by default
-  // args: defaultsMovies - instance of DefaultMovies class initialized in data.component.ts
+  // args: titlesList - instance of MovieTitlesList class initialized in data.component.ts
   //      quantity - number of default movies to load
   // output: array of default movie objects
-  loadFromDefaultsList(defaultsMovies, quantity: number): Array<object> {
+  loadFromTitlesList(titlesList, quantity: number): Array<object> {
     let result: Array<object> = [];
 
     for (let i=0; i<quantity; i++) {
-      let title: string = defaultsMovies.getMovieTitle();
+      let title: string = titlesList.getMovieTitle();
       let movie: object = loadMovie(title);
       result.push(movie);
     }

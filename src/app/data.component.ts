@@ -6,7 +6,7 @@ const apiCommunicator = new APICommunicator;
 
 // Class that stores titles of default movies and keeps track of what
 //   movies are already loaded
-class DefaultMovies {
+class MovieTitlesList {
   movies: Array<string>;
   loaded: number;
   constructor(moviesArray) {
@@ -19,7 +19,7 @@ class DefaultMovies {
     return title;
   }
 }
-const defaultMovies = new DefaultMovies(data.movies);
+const defaultMoviesList = new MovieTitlesList(data.movies);
 
 @Component({
   selector: 'app-root',
@@ -28,6 +28,6 @@ const defaultMovies = new DefaultMovies(data.movies);
 })
 export class DataComponent {
   click() {
-    console.log(apiCommunicator.loadFromDefaultsList(defaultMovies, 2));
+    console.log(apiCommunicator.loadFromTitlesList(defaultMoviesList, 2));
   }
 }
