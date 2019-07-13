@@ -1,7 +1,7 @@
 <h2 class="ml-3 mt-1 d-inline-block">Most popular movies</h2>
 <span class="ml-3">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span>
 <ul>
-  <li>
-
+  <li *ngFor="let movie of movies">
+    <span>{{movie.Title}}</span>
   </li>
 </ul>

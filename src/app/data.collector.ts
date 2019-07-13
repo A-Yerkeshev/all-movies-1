@@ -11,7 +11,7 @@ const apiCommunicator = new APICommunicator;
 class MovieTitlesList {
   movies: Array<string>;
   loaded: number;
-  constructor(moviesArray) {
+  constructor(moviesArray: Array<string>) {
     this.movies = moviesArray;
     this.loaded = 0;
   }
@@ -24,5 +24,14 @@ class MovieTitlesList {
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
 export class DataCollector {
-
+  constructor() {
+  }
+  // Function to load specified number of default movies
+  // args: loadedList - list of movies that are already loaded and rendered on the template
+  //       quantity - number of default movies to load
+  // output: new list with both old and new default movies
+  loadDefaultMovies(loadedList: Array<object>, quantity: number): Array<object> {
+    let newList = apiCommunicator.loadFromTitlesList(defaultMoviesList, quantity);
+    return [...loadedList, ...newList];
+  }
 }
