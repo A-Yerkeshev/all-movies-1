@@ -15,8 +15,10 @@ console.log(defaultMovies);
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class ControllerComponent implements OnInit {
+class ControllerComponent implements OnInit {
   movies = defaultMovies;
   ngOnInit() {
   }
 }
+
+export { ControllerComponent }

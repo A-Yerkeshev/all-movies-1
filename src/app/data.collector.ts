@@ -23,7 +23,7 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-export class DataCollector {
+class DataCollector {
   constructor() {
   }
   // Function to load specified number of default movies
@@ -35,3 +35,5 @@ export class DataCollector {
     return [...loadedList, ...newList];
   }
 }
+
+export { DataCollector }

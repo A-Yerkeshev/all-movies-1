@@ -13,4 +13,6 @@ import { ControllerComponent } from './controller.component';
   providers: [],
   bootstrap: [ControllerComponent]
 })
-export class AppModule { }
+class AppModule { }
+
+export { AppModule }
