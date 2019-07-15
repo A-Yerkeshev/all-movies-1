@@ -10,7 +10,7 @@ import $ from "jquery/dist/jquery.js";
 const loadMovie: (arg: string) => object =
   function(title: string): object {
     let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
-    let response: object;
+    let result: object;
 
     url += 't=' + title;
 
@@ -18,12 +18,12 @@ const loadMovie: (arg: string) => object =
     $.ajax({
       url: url,
       async: false,
-      success: function(result) {
-        response = result;
+      success: function(response) {
+        result = response;
       }
     })
 
-    return response;
+    return result;
   }
 
 
