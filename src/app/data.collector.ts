@@ -20,12 +20,16 @@ class MovieTitlesList {
     this.loaded ++;
     return title;
   }
+  getTotalNumber(): number {
+    return this.movies.length;
+  }
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
 class DataCollector {
   constructor() {
   }
+  totalDefaultMovies: number = defaultMoviesList.getTotalNumber();
   // Function to load specified number of default movies
   // args: loadedList - list of movies that are already loaded and rendered on the template
   //       quantity - number of default movies to load
