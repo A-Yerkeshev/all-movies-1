@@ -3,10 +3,29 @@
     <h2 class="ml-3 mt-1 d-inline-block">Most popular movies</h2>
     <span class="ml-3">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span><br>
   </div>
+  <div class="overflow-hidden">
+    <ul class="pagination float-right my-2">
+      <li class="page-item">
+        <a class="page-link" href="#">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
   <div class="row ml-2">
-    <div class="col-4 col-sm-3 col-md-2 d-inline-block m-1 text-center px-1 bg-dark overflow-hidden" *ngFor="let movie of movies">
-      <h4 class="m-1 text-white mb-2">{{movie.Title}}</h4>
-      <img class="img-fluid" src={{movie.Poster}}>
+    <div class="col-4 col-sm-3 col-md-2 m-1 px-1 bg-dark d-flex flex-wrap" *ngFor="let movie of movies">
+      <div class="m-1 mb-2 w-100 d-flex align-items-center">
+        <h4 class="w-100 text-white text-center mb-0">{{movie.Title}}</h4>
+      </div>
+      <img class="w-100 align-self-end" src={{movie.Poster}}>
     </div>
   </div>
 </div>

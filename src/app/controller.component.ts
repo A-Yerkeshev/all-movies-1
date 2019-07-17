@@ -7,7 +7,7 @@ import { DataCollector } from './data.collector';
 const dataCollector = new DataCollector();
 
 let defaultMovies: Array<object> = [];
-defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 12);
+defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
 console.log(defaultMovies);
 
 @Component({
