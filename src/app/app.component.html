@@ -3,9 +3,9 @@
     <h2 class="ml-3 mt-1 d-inline-block">Most popular movies</h2>
     <span class="ml-3">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span><br>
   </div>
-  <div class="row">
-    <div class="col-4 col-sm-3 col-md-2 d-inline-block m-2 text-center px-1" *ngFor="let movie of movies">
-      <h4 class="m-1 h-25">{{movie.Title}}</h4>
+  <div class="row ml-2">
+    <div class="col-4 col-sm-3 col-md-2 d-inline-block m-1 text-center px-1 bg-dark overflow-hidden" *ngFor="let movie of movies">
+      <h4 class="m-1 text-white mb-2">{{movie.Title}}</h4>
       <img class="img-fluid" src={{movie.Poster}}>
     </div>
   </div>
