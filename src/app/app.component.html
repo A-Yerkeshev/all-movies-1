@@ -4,7 +4,26 @@
     <span class="ml-3">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span><br>
   </div>
   <div class="overflow-hidden">
-    <div class="float-right mt-2"></div>
+    <ul class="pagination float-right mt-2">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="#" *ngIf="currentPage != 1">1</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage > 3">{{currentPage-2}}</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage > 2">{{currentPage-1}}</a></li>
+      <li class="page-item"><a class="page-link" href="#">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage < lastPage-1">{{currentPage+1}}</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage < lastPage-2">{{currentPage+2}}</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage+2 < lastPage">...</a></li>
+      <li class="page-item"><a class="page-link" href="#" *ngIf="currentPage != lastPage">{{lastPage}}</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
   </div>
   <div class="row justify-content-center">
     <div class="col-4 col-sm-3 col-md-2 m-1 px-1 bg-dark d-flex flex-wrap" *ngFor="let movie of movies">

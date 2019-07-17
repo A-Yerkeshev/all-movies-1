@@ -15,9 +15,11 @@ defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
   styleUrls: ['./app.component.css']
 })
 class ControllerComponent{
-  page: number = 1;
+  currentPage: number = 1;
   itemsPerPage: number = 15;
-  totalItems: number = dataCollector.totalDefaultMovies;
+//  totalItems: number = dataCollector.totalDefaultMovies;
+  totalItems: number = 150;
+  lastPage: number = this.totalItems/this.itemsPerPage;
   movies = defaultMovies;
   // Function to load more default movies when user visits new page
   // arg: newPageIndex - new page index
@@ -26,7 +28,7 @@ class ControllerComponent{
     if (newPageIndex > this.movies.length/this.itemsPerPage) {
       this.movies = dataCollector.loadDefaultMovies(this.movies, this.itemsPerPage);
     }
-    this.page = newPageIndex;
+    this.currentPage = newPageIndex;
   }
 }
 
