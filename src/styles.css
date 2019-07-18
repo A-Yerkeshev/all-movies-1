@@ -1,3 +1,17 @@
 .nav-item:hover {
   background-color: #343A40;
 }
+
+.page-item.active
+.page-link {
+  background-color: #28A745;
+  border-color: #28A745;
+}
+
+.page-link {
+  color: #28A745;
+}
+
+.page-link:hover {
+  color: #28A745;
+}

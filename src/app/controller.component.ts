@@ -24,6 +24,7 @@ class ControllerComponent{
   // Function to load more default movies when user visits new page
   // arg: newPageIndex - new page index
   changePage(newPageIndex: number) {
+    console.log(newPageIndex)
     // Check first if new movies need to be loaded
     if (newPageIndex > this.movies.length/this.itemsPerPage) {
       this.movies = dataCollector.loadDefaultMovies(this.movies, this.itemsPerPage);
