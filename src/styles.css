@@ -6,12 +6,9 @@
 .page-link {
   background-color: #28A745;
   border-color: #28A745;
-}
-
-.page-link {
-  color: #28A745;
+  color: white !important;
 }
 
 .page-link:hover {
-  color: #28A745;
+  cursor: pointer;
 }

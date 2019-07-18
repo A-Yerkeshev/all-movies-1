@@ -17,19 +17,24 @@ defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
 class ControllerComponent{
   currentPage: number = 1;
   itemsPerPage: number = 15;
-//  totalItems: number = dataCollector.totalDefaultMovies;
-  totalItems: number = 150;
+  totalItems: number = dataCollector.totalDefaultMovies;
   lastPage: number = this.totalItems/this.itemsPerPage;
-  movies = defaultMovies;
+  loadedMovies: Array<object> = defaultMovies;
+  displayedMovies: Array<object> = defaultMovies;
   // Function to load more default movies when user visits new page
   // arg: newPageIndex - new page index
   changePage(newPageIndex: number) {
-    console.log(newPageIndex)
-    // Check first if new movies need to be loaded
-    if (newPageIndex > this.movies.length/this.itemsPerPage) {
-      this.movies = dataCollector.loadDefaultMovies(this.movies, this.itemsPerPage);
+    // Check if new page index is valid
+    if (newPageIndex > 0 && newPageIndex <= this.lastPage) {
+      // Check if new movies need to be loaded
+      if (newPageIndex > this.loadedMovies.length/this.itemsPerPage) {
+        this.loadedMovies = dataCollector.loadDefaultMovies(this.loadedMovies, this.itemsPerPage);
+      }
+      // Display movies on page
+      let firstMovieIndex: number = this.itemsPerPage*(newPageIndex-1);
+      this.displayedMovies = this.loadedMovies.slice(firstMovieIndex, firstMovieIndex+this.itemsPerPage);
+      this.currentPage = newPageIndex;
     }
-    this.currentPage = newPageIndex;
   }
 }
 
