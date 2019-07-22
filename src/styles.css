@@ -12,3 +12,11 @@
 .page-link:hover {
   cursor: pointer;
 }
+
+.spinner-sheet {
+  height: 200%;
+}
+
+.spinner-border {
+  z-index: 1;
+}
