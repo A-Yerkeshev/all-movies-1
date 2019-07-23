@@ -35,7 +35,6 @@ class ControllerComponent{
       // To load movies asynchronously, wrap it into setTimeout function
       let component = this;
       setTimeout(function(component: ControllerComponent) {
-        console.log(component)
         if (newPageIndex > component.loadedMovies.length/component.itemsPerPage) {
           component.loadedMovies = dataCollector.loadDefaultMovies(component.loadedMovies, component.itemsPerPage);
         }
