@@ -20,3 +20,7 @@
 .spinner-border {
   z-index: 1;
 }
+
+.search-area {
+  height: min-content;
+}

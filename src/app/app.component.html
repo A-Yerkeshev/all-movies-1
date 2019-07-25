@@ -1,13 +1,20 @@
-<div class="container m-0 ml-3 p-0">
-  <div class="border-bottom">
-    <h2 class="ml-3 mt-1 d-inline-block">Most popular movies</h2>
-    <span class="ml-3">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span><br>
-  <div class="form-group has-search">
-    <i class="fa fa-search"></i>
-    <input type="text" class="form-control" placeholder="Search">
+<div class="container d-inline m-0 p-0">
+  <div class="row justify-content-between border-bottom">
+    <div class="col-6 col-md-8">
+      <h2 class="ml-3 mt-1 d-inline-block">Most popular movies</h2>
+      <span class="ml-3 d-inline-flex">(According to rating of <a href="https://www.imdb.com">IMDb</a>)</span><br>
+    </div>
+    <div class="input-group col-6 col-md-4">
+      <div class="search-area input-group mt-2 mb-1 mr-1">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+          <button class="fa fa-search btn btn-success" type="button"></button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="overflow-hidden">
-    <ul class="pagination float-right mt-2 mr-1">
+  <div class="row clearfix justify-content-end">
+    <ul class="col-6 col-md-3 pagination mt-2">
       <li class="page-item" (click)="changePage(currentPage-1)" [ngClass]="{'disabled': currentPage == 1}">
         <a class="page-link" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
