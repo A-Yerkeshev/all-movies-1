@@ -4,11 +4,14 @@
 
 import $ from "jquery/dist/jquery.js";
 
-// Function to send AJAX request to OMDb API
-// arg: title - title of the movie
-//      single - boolean that indicates whether to request a single movie that matches
-//       the title or the set of all movies that match the title. Default is true
-// output: array of matched movie objects
+/* Function to send AJAX request to OMDb API
+  Args: title - title of the movie
+        single - boolean that indicates whether to request a single movie that matches
+          the title or the set of all movies that match the title. Default is true
+  Output: array of matched movie objects
+  Notes: if function is used to retrieve single movie object it should be used
+    with following syntax: loadMovie(title)[0]. If function is used to retrieve an
+    array of matched movies the syntax is: loadMovie(title, false) */
 const loadMovie: (arg1: string, arg2?: boolean) => Array<object> =
   function(title: string, single: boolean = true): Array<object> {
     let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
@@ -42,10 +45,10 @@ const loadMovie: (arg1: string, arg2?: boolean) => Array<object> =
 class APICommunicator {
   constructor() {
   }
-  // Function to load movies by default
-  // args: titlesList - instance of MovieTitlesList class initialized in data.component.ts
-  //      quantity - number of default movies to load
-  // output: array of default movie objects
+  /* Function to load movies by default
+    Args: titlesList - instance of MovieTitlesList class initialized in data.component.ts
+        quantity - number of default movies to load
+    Output: array of default movie objects */
   loadFromTitlesList(titlesList, quantity: number): Array<object> {
     let result: Array<object> = [];
 
@@ -57,9 +60,9 @@ class APICommunicator {
 
     return result;
   }
-  // Function to load the movie by user search
-  // arg: title - title of the movie user searches for
-  // output: array of matched movies
+  /* Function to load the movie by user search
+    Args: title - title of the movie user searches for
+    Output: array of matched movies */
   searchMovie(title: string): Array<object> {
     let result: Array<object> = [];
     result = loadMovie(title, false);

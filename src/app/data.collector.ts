@@ -30,17 +30,17 @@ class DataCollector {
   constructor() {
   }
   totalDefaultMovies: number = defaultMoviesList.getTotalNumber();
-  // Function to load specified number of default movies
-  // args: loadedList - list of movies that are already loaded and rendered on the template
-  //       quantity - number of default movies to load
-  // output: new list with both old and new default movies
+  /* Function to load specified number of default movies
+    Args: loadedList - list of movies that are already loaded and rendered on the template
+          quantity - number of default movies to load
+    Output: new list with both old and new default movies */
   loadDefaultMovies(loadedList: Array<object>, quantity: number): Array<object> {
     let newList = apiCommunicator.loadFromTitlesList(defaultMoviesList, quantity);
     return [...loadedList, ...newList];
   }
-  // Function that recieves searched movie title from Controller Component, makes corresponding
-  // AJAX request through API Communicator and returns movies found
-  // arg: title - title of the movie user searches for
+  /* Function that recieves searched movie title from Controller Component, makes corresponding
+      AJAX request through API Communicator and returns movies found
+    Args: title - title of the movie user searches for */
   searchMovie(title: string) {
     apiCommunicator.searchMovie(title);
   }

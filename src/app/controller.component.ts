@@ -22,8 +22,8 @@ class ControllerComponent{
   lastPage: number = this.totalItems/this.itemsPerPage;
   loadedMovies: Array<object> = defaultMovies;
   displayedMovies: Array<object> = defaultMovies;
-  // Function to load more default movies when user visits new page
-  // arg: newPageIndex - new page index
+  /* Function to load more default movies when user visits new page
+    Args: newPageIndex - new page index */
   changePage(newPageIndex: number) {
     // Check if new page index is valid
     if (newPageIndex > 0 && newPageIndex <= this.lastPage) {
@@ -48,8 +48,8 @@ class ControllerComponent{
       }, 10, component)
     }
   }
-  // Function to pass searched title of the movie to Data Collector and render recieved movies on page
-  // arg: title - title of the movie user searches for
+  /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
+    Args: title - title of the movie user searches for */
   search(title: string) {
     dataCollector.searchMovie(title);
   }
