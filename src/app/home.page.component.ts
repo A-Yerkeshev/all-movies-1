@@ -1,5 +1,5 @@
-// Component is responsible for retrieving the data from Data Collector and
-// inserting it into HTML templates
+// Component is responsible for retrieving most popular movies from OMDb server via Data Collector
+// and rendering them on the home page of the app
 
 import { Component, OnInit } from '@angular/core';
 import { DataCollector } from './data.collector';
@@ -15,7 +15,7 @@ defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-class ControllerComponent{
+class HomePageComponent{
   currentPage: number = 1;
   itemsPerPage: number = 15;
   totalItems: number = dataCollector.totalDefaultMovies;
@@ -34,7 +34,7 @@ class ControllerComponent{
       $('.top-movies').append(spinner);
       // To load movies asynchronously, wrap it into setTimeout function
       let component = this;
-      setTimeout(function(component: ControllerComponent) {
+      setTimeout(function(component: HomePageComponent) {
         if (newPageIndex > component.loadedMovies.length/component.itemsPerPage) {
           component.loadedMovies = dataCollector.loadDefaultMovies(component.loadedMovies, component.itemsPerPage);
         }
@@ -55,4 +55,4 @@ class ControllerComponent{
   }
 }
 
-export { ControllerComponent }
+export { HomePageComponent }
