@@ -48,6 +48,11 @@ class ControllerComponent{
       }, 10, component)
     }
   }
+  // Function to pass searched title of the movie to Data Collector and render recieved movies on page
+  // arg: title - title of the movie user searches for
+  search(title: string) {
+    dataCollector.searchMovie(title);
+  }
 }
 
 export { ControllerComponent }

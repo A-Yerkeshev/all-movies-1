@@ -6,20 +6,32 @@ import $ from "jquery/dist/jquery.js";
 
 // Function to send AJAX request to OMDb API
 // arg: title - title of the movie
-// output: movie object
-const loadMovie: (arg: string) => object =
-  function(title: string): object {
+//      single - boolean that indicates whether to request a single movie that matches
+//       the title or the set of all movies that match the title. Default is true
+// output: array of matched movie objects
+const loadMovie: (arg1: string, arg2?: boolean) => Array<object> =
+  function(title: string, single: boolean = true): Array<object> {
     let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
-    let result: object;
+    let result: Array<object> = [];
 
-    url += 't=' + title;
+    if (single === false) {
+      url += 's=' + title;
+    } else {
+      url += 't=' + title;
+    }
 
     // Make an AJAX call and assign result
     $.ajax({
       url: url,
       async: false,
-      success: function(response) {
-        result = response;
+      success: function(response: object | Array<object>) {
+        // If single movie was returned - push it to result array, otherwise -
+        // assign returned array to result variable
+        if (typeof(response) == 'object') {
+          result.push(response);
+        } else {
+          result = response;
+        }
       }
     })
 
@@ -39,10 +51,18 @@ class APICommunicator {
 
     for (let i=0; i<quantity; i++) {
       let title: string = titlesList.getMovieTitle();
-      let movie: object = loadMovie(title);
+      let movie: object = loadMovie(title)[0];
       result.push(movie);
     }
 
+    return result;
+  }
+  // Function to load the movie by user search
+  // arg: title - title of the movie user searches for
+  // output: array of matched movies
+  searchMovie(title: string): Array<object> {
+    let result: Array<object> = [];
+    result = loadMovie(title, false);
     return result;
   }
 }

@@ -38,6 +38,12 @@ class DataCollector {
     let newList = apiCommunicator.loadFromTitlesList(defaultMoviesList, quantity);
     return [...loadedList, ...newList];
   }
+  // Function that recieves searched movie title from Controller Component, makes corresponding
+  // AJAX request through API Communicator and returns movies found
+  // arg: title - title of the movie user searches for
+  searchMovie(title: string) {
+    apiCommunicator.searchMovie(title);
+  }
 }
 
 export { DataCollector }

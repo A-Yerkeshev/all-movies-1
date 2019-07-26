@@ -6,9 +6,9 @@
     </div>
     <div class="input-group col-6 col-md-4">
       <div class="search-area input-group mt-2 mb-1 mr-1">
-        <input type="text" class="form-control" placeholder="Search">
+        <input #searchbox type="text" class="form-control" placeholder="Search">
         <div class="input-group-append">
-          <button class="fa fa-search btn btn-success" type="button"></button>
+          <button class="fa fa-search btn btn-success" type="button" (click)="search(searchbox.value)"></button>
         </div>
       </div>
     </div>
