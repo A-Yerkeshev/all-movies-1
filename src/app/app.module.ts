@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { HomePageComponent } from './home.page.component';
+import { MovieComponent } from './movie.component';
 
 @NgModule({
   declarations: [
-    HomePageComponent
+    HomePageComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule

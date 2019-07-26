@@ -12,8 +12,7 @@ defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
 
 @Component({
   selector: 'app-root',
-  templateUrl: './home.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './home.html'
 })
 class HomePageComponent{
   currentPage: number = 1;
