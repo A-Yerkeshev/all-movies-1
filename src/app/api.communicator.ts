@@ -12,10 +12,10 @@ import $ from "jquery/dist/jquery.js";
   Notes: if function is used to retrieve single movie object it should be used
     with following syntax: loadMovie(title). If function is used to retrieve an
     array of matched movies the syntax is: loadMovie(title, true).Search */
-const loadMovie: (arg1: string, arg2?: boolean)=> object =
-  function(title: string, search: boolean = false): object {
+const loadMovie: (arg1: string, arg2?: boolean)=> Response =
+  function(title: string, search: boolean = false): Response {
     let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
-    let result: object;
+    let result: Response;
 
     if (search === true) {
       url += 's=' + title;
@@ -27,13 +27,18 @@ const loadMovie: (arg1: string, arg2?: boolean)=> object =
     $.ajax({
       url: url,
       async: false,
-      success: function(response: object) {
+      success: function(response: Response) {
         result = response;
       }
     })
     return result;
   }
 
+// If server response contains multiple movie objects, the array shall be accessed through
+// .Search property
+interface Response {
+  Search?: Array<object>
+}
 
 class APICommunicator {
   constructor() {
@@ -57,7 +62,7 @@ class APICommunicator {
     Args: title - title of the movie user searches for
     Output: array of matched movies */
   searchMovie(title: string): Array<object> {
-    let result: Array<object> = [];
+    let result: Array<object>;
     result = loadMovie(title, true).Search;
     return result;
   }

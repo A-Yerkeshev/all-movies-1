@@ -1,17 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ControllerComponent } from './controller.component';
+import { HomePageComponent } from './home.page.component';
 
 @NgModule({
   declarations: [
-    ControllerComponent
+    HomePageComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [ControllerComponent]
+  bootstrap: [HomePageComponent]
 })
 class AppModule { }
 

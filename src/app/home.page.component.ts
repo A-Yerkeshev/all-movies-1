@@ -51,7 +51,7 @@ class HomePageComponent{
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string) {
-    console.log(dataCollector.searchMovie(title));
+    dataCollector.searchMovie(title);
   }
 }
 
