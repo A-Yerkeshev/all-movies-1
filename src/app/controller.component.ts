@@ -51,7 +51,7 @@ class ControllerComponent{
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string) {
-    dataCollector.searchMovie(title);
+    console.log(dataCollector.searchMovie(title));
   }
 }
 
