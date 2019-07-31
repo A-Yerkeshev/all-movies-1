@@ -32,7 +32,6 @@ class HomePageComponent{
         </div>`;
       $('.top-movies').append(spinner);
       // To load movies asynchronously, wrap it into setTimeout function
-      let component = this;
       setTimeout(function(component: HomePageComponent) {
         if (newPageIndex > component.loadedMovies.length/component.itemsPerPage) {
           component.loadedMovies = dataCollector.loadDefaultMovies(component.loadedMovies, component.itemsPerPage);
@@ -44,13 +43,18 @@ class HomePageComponent{
         component.currentPage = newPageIndex;
         // Remove loading spinner
         $('.spinner-sheet').remove();
-      }, 10, component)
+      }, 10, this)
     }
   }
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string) {
     dataCollector.searchMovie(title);
+  }
+  /* Function that sets movie items to display on single page
+    Args: num - number of movie items to set */
+  setItemsPerPage(num: number) {
+    this.itemsPerPage = num;
   }
 }
 

@@ -1,3 +1,7 @@
+span {
+  cursor: default;
+}
+
 .nav-item:hover {
   background-color: #343A40;
 }
@@ -22,5 +26,9 @@
 }
 
 .search-area {
+  height: min-content;
+}
+
+.dropdown {
   height: min-content;
 }
