@@ -52,8 +52,8 @@ class APICommunicator {
 
     for (let i=0; i<quantity; i++) {
       let title: string = titlesList.getMovieTitle();
-      let movie: object = loadMovie(title);
-      if (movie) {
+      if (title) {
+        let movie: object = loadMovie(title);
         result.push(movie);
       }
     }

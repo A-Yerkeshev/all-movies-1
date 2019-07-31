@@ -47,7 +47,7 @@
         <a class="page-link" *ngIf="currentPage < lastPage-2">{{currentPage+2}}</a>
       </li>
       <li class="page-item" (click)="changePage(currentPage+3)">
-        <a class="page-link" *ngIf="currentPage+2 < lastPage">...</a>
+        <a class="page-link" *ngIf="currentPage+2 < lastPage && currentPage+3 != lastPage">...</a>
       </li>
       <li class="page-item" (click)="changePage(lastPage)">
         <a class="page-link" *ngIf="currentPage != lastPage">{{lastPage}}</a>
