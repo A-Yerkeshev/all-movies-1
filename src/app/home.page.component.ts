@@ -18,7 +18,7 @@ class HomePageComponent{
   currentPage: number = 1;
   itemsPerPage: number = 15;
   totalItems: number = dataCollector.totalDefaultMovies;
-  lastPage: number = Math.round(this.totalItems/this.itemsPerPage);
+  lastPage: number = Math.ceil(this.totalItems/this.itemsPerPage);
   loadedMovies: Array<object> = defaultMovies;
   displayedMovies: Array<object> = defaultMovies;
   /* Function to load more default movies when user visits new page
@@ -56,7 +56,7 @@ class HomePageComponent{
   setItemsPerPage(num: number) {
     this.itemsPerPage = num;
     this.changePage(this.currentPage);
-    this.lastPage = Math.round(this.totalItems/this.itemsPerPage);
+    this.lastPage = Math.ceil(this.totalItems/this.itemsPerPage);
   }
 }
 
