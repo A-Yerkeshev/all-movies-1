@@ -11,7 +11,7 @@ let defaultMovies: Array<object> = [];
 defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home',
   templateUrl: './home.html'
 })
 class HomePageComponent{

@@ -3,17 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { HomePageComponent } from './home.page.component';
 import { MovieComponent } from './movie.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     HomePageComponent,
-    MovieComponent
+    MovieComponent,
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [HomePageComponent]
+  bootstrap: [AppComponent]
 })
 class AppModule { }
 
