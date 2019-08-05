@@ -7,36 +7,69 @@ import data from "./movies.json"
 const apiCommunicator = new APICommunicator;
 
 // Class that stores titles of default movies and keeps track of what
-//   movies are already loaded
+// movies are already loaded
 class MovieTitlesList {
   movies: Array<string>;
-  loaded: number;
+  loaded: Array<number>;
   constructor(moviesArray: Array<string>) {
     this.movies = moviesArray;
-    this.loaded = 0;
+    this.loaded = [];
   }
-  getMovieTitle(): string {
-    let title = this.movies[this.loaded];
-    this.loaded ++;
-    return title;
+  /* Function to get movie title
+    Args: index - index of movie title in the list
+    Output: movie title string */
+  getMovieTitle(index: number): string {
+    return this.movies[index];
   }
+  // Function to get total lenght of movies array
   getTotalNumber(): number {
     return this.movies.length;
+  }
+  // Function to mark certain movie loaded
+  markLoaded(index: number): void {
+    if (this.loaded.includes(index) == false) {
+      this.loaded.push(index);
+      this.loaded.sort((num1: number, num2: number): number => num1 - num2);
+    }
+  }
+  /* Function that checks if movie already been loaded
+    Args: index - index of movie title in array
+    Output: boolean */
+  isLoaded(index: number): boolean {
+    return this.loaded.includes(index)
   }
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
 class DataCollector {
+  totalDefaultMovies: number
   constructor() {
+    this.totalDefaultMovies = defaultMoviesList.getTotalNumber();
   }
-  totalDefaultMovies: number = defaultMoviesList.getTotalNumber();
   /* Function to load specified number of default movies
-    Args: loadedList - list of movies that are already loaded and rendered on the template
-          quantity - number of default movies to load
-    Output: new list with both old and new default movies */
-  loadDefaultMovies(loadedList: Array<object>, quantity: number): Array<object> {
-    let newList = apiCommunicator.loadFromTitlesList(defaultMoviesList, quantity);
-    return [...loadedList, ...newList];
+    Args: moviesList - array with spaces allocated for movie objects. Example:
+            [null, movieObject, movieObject, ... null]
+          firstIndex - index of movie to start loading from
+          lastIndex - last index of movie to be loaded */
+  loadDefaultMovies(moviesList: Array<object>, firstIndex: number, lastIndex: number): void {
+    // First check if required movies are already loaded
+    const from: number = defaultMoviesList.loaded.indexOf(firstIndex);
+    const to: number = defaultMoviesList.loaded.indexOf(lastIndex + 1);
+    const checkArray: Array<number> = defaultMoviesList.loaded.slice(from, to);
+
+    if (checkArray.length == lastIndex - firstIndex + 1) {
+      return
+    } else {
+      // Otherwise fill empty spaces in moviesList by movie objects
+      let currentIndex: number = firstIndex;
+      while (currentIndex <= lastIndex) {
+        if (moviesList[currentIndex] == null) {
+          const movie = apiCommunicator.loadDefaultMovie(defaultMoviesList, currentIndex);
+          moviesList[currentIndex] = movie;
+        }
+        currentIndex++;
+      }
+    }
   }
   /* Function that recieves searched movie title from Controller Component, makes corresponding
       AJAX request through API Communicator and returns movies found
@@ -44,6 +77,11 @@ class DataCollector {
   searchMovie(title: string): Array<object> {
     return apiCommunicator.searchMovie(title);
   }
+  /* Function to return total number of default movies
+    Output: number of movies */
+  totalMovies(): number {
+    return defaultMoviesList.getTotalNumber();
+  }
 }
 
-export { DataCollector }
+export { DataCollector, MovieTitlesList }

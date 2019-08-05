@@ -2,6 +2,7 @@
 // and retreive the responce in TypeScript operatable format. API Communicator is used
 // by Data Collector.
 
+import { MovieTitlesList } from "./data.collector"
 import $ from "jquery/dist/jquery.js";
 
 /* Function to send AJAX request to OMDb API
@@ -43,22 +44,23 @@ interface Response {
 class APICommunicator {
   constructor() {
   }
-  /* Function to load movies by default
+  /* Function to load default movies
     Args: titlesList - instance of MovieTitlesList class initialized in data.component.ts
-        quantity - number of default movies to load
-    Output: array of default movie objects */
-  loadFromTitlesList(titlesList, quantity: number): Array<object> {
-    let result: Array<object> = [];
+        index - index of default movie title
+    Output: movie object */
+  loadDefaultMovie(titlesList: MovieTitlesList, index: number): object {
+    let result: object = null;
+    let title: string = titlesList.getMovieTitle(index);
+    let response: object = loadMovie(title);
 
-    for (let i=0; i<quantity; i++) {
-      let title: string = titlesList.getMovieTitle();
-      if (title) {
-        let movie: object = loadMovie(title);
-        result.push(movie);
+    if (title) {
+      if (response) {
+        result = response;
+        titlesList.markLoaded(index);
       }
     }
 
-    return result;
+    return result
   }
   /* Function to load the movie by user search
     Args: title - title of the movie user searches for

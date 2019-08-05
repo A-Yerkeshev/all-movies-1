@@ -7,8 +7,15 @@ import $ from "jquery/dist/jquery.js";
 
 const dataCollector = new DataCollector();
 
-let defaultMovies: Array<object> = [];
-defaultMovies = dataCollector.loadDefaultMovies(defaultMovies, 15);
+let movies: Array<object> = [];
+// Allocate space in movies array. As new movies will be loaded they will be placed
+// in array according to their index in movies.json
+for (let i=0; i<=dataCollector.totalMovies(); i++) {
+  movies.push(null)
+}
+
+// Load first 15 movies
+dataCollector.loadDefaultMovies(movies, 0, 15);
 
 @Component({
   selector: 'app-home',
@@ -19,8 +26,8 @@ class HomePageComponent{
   itemsPerPage: number = 15;
   totalItems: number = dataCollector.totalDefaultMovies;
   lastPage: number = Math.ceil(this.totalItems/this.itemsPerPage);
-  loadedMovies: Array<object> = defaultMovies;
-  displayedMovies: Array<object> = defaultMovies;
+  movies: Array<object> = movies;
+  displayedMovies: Array<object> = this.movies.slice(0, 15);
   /* Function to load more default movies when user visits new page
     Args: newPageIndex - new page index */
   changePage(newPageIndex: number) {
@@ -31,19 +38,19 @@ class HomePageComponent{
         <div class="spinner-border text-secondary mt-5" role="status"><span class="sr-only">Loading...</span></div>
         </div>`;
       $('.top-movies').append(spinner);
+
       // To load movies asynchronously, wrap it into setTimeout function
       setTimeout(function(component: HomePageComponent) {
-        if (newPageIndex > component.loadedMovies.length/component.itemsPerPage) {
-          component.loadedMovies = dataCollector.loadDefaultMovies(component.loadedMovies, component.itemsPerPage);
-        }
+        const firstIndex = (newPageIndex - 1) * component.itemsPerPage + 1;
+        const lastIndex = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
+        dataCollector.loadDefaultMovies(component.movies, firstIndex, lastIndex);
         // Display movies on page
-        let firstMovieIndex: number = component.itemsPerPage*(newPageIndex-1);
-        component.displayedMovies = component.loadedMovies.slice(
-          firstMovieIndex, firstMovieIndex+component.itemsPerPage);
-        component.currentPage = newPageIndex;
+        component.displayedMovies = component.movies.slice(firstIndex, lastIndex);
+
         // Remove loading spinner
         $('.spinner-sheet').remove();
-      }, 10, this)
+      }, 10, this);
+      this.currentPage = newPageIndex;
     }
   }
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
