@@ -22,15 +22,45 @@ dataCollector.loadDefaultMovies(movies, 0, 15);
   templateUrl: './home.html'
 })
 class HomePageComponent{
-  currentPage: number = 1;
-  itemsPerPage: number = 15;
-  totalItems: number = dataCollector.totalDefaultMovies;
-  lastPage: number = Math.ceil(this.totalItems/this.itemsPerPage);
-  movies: Array<object> = movies;
-  displayedMovies: Array<object> = this.movies.slice(0, 15);
+  currentPage: number;
+  itemsPerPage: number;
+  totalItems: number;
+  lastPage: number;
+  movies: Array<object>;
+  displayedMovies: Array<object>;
+
+  constructor() {
+    this.currentPage = 1;
+    this.itemsPerPage = 15;
+    this.totalItems = dataCollector.totalDefaultMovies;
+    this.lastPage = Math.ceil(this.totalItems/this.itemsPerPage);
+    this.movies = movies;
+    this.setDisplayedMovies(0, 15);
+  }
+
+  /* Function to create array of movies to display from list of loaded movies
+    Args: firstIndex - index of first movie in movies array to be displayed
+          lastIndex - index of last movie in movies array to be displayed*/
+  setDisplayedMovies(firstIndex: number, lastIndex: number): void {
+    const moviesSlice: Array<object> = this.movies.slice(firstIndex, lastIndex);
+    // If all movies are loaded - just assign sliced array to displayed movies array
+    if (moviesSlice.includes(null) == false) {
+      this.displayedMovies = moviesSlice
+    } else {
+      // Otherwise exclude non-valid objects and assign
+      let result: Array<object> = [];
+      moviesSlice.forEach(function(movie: object) {
+        if (movie) {
+          result.push(movie);
+        }
+      })
+      this.displayedMovies = result;
+    }
+  }
+
   /* Function to load more default movies when user visits new page
     Args: newPageIndex - new page index */
-  changePage(newPageIndex: number) {
+  changePage(newPageIndex: number): void {
     // Check if new page index is valid
     if (newPageIndex > 0 && newPageIndex <= this.lastPage) {
       // Display loading spinner while new movies are loading
@@ -45,7 +75,7 @@ class HomePageComponent{
         const lastIndex = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
         dataCollector.loadDefaultMovies(component.movies, firstIndex, lastIndex);
         // Display movies on page
-        component.displayedMovies = component.movies.slice(firstIndex, lastIndex);
+        component.setDisplayedMovies(firstIndex, lastIndex + 1);
 
         // Remove loading spinner
         $('.spinner-sheet').remove();
@@ -53,11 +83,13 @@ class HomePageComponent{
       this.currentPage = newPageIndex;
     }
   }
+
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string) {
     dataCollector.searchMovie(title);
   }
+
   /* Function that sets movie items to display on single page
     Args: num - number of movie items to set */
   setItemsPerPage(num: number) {
