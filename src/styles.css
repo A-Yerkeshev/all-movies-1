@@ -2,6 +2,10 @@ span {
   cursor: default;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .nav-item:hover {
   background-color: #343A40;
 }
