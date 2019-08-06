@@ -91,11 +91,18 @@ class HomePageComponent{
   }
 
   /* Function that sets movie items to display on single page
-    Args: num - number of movie items to set */
-  setItemsPerPage(num: number) {
-    this.itemsPerPage = num;
-    this.changePage(this.currentPage);
-    this.lastPage = Math.ceil(this.totalItems/this.itemsPerPage);
+    Args: itemsPerPageNew - number of movie items to set */
+  setItemsPerPage(itemsPerPageNew: number) {
+    this.itemsPerPage = itemsPerPageNew;
+    this.lastPage = Math.ceil(this.totalItems/itemsPerPageNew);
+
+    // If with new itemsPerPage parameter current page would not exist - set current page to last existing
+    if (this.currentPage > this.lastPage) {
+      this.changePage(this.lastPage);
+    } else {
+      // Otherwise re-render the current page with new items per page
+      this.changePage(this.currentPage);
+    }
   }
 }
 
