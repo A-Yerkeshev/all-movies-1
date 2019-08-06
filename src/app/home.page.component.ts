@@ -86,13 +86,13 @@ class HomePageComponent{
 
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
-  search(title: string) {
+  search(title: string): void {
     dataCollector.searchMovie(title);
   }
 
   /* Function that sets movie items to display on single page
     Args: itemsPerPageNew - number of movie items to set */
-  setItemsPerPage(itemsPerPageNew: number) {
+  setItemsPerPage(itemsPerPageNew: number): void {
     this.itemsPerPage = itemsPerPageNew;
     this.lastPage = Math.ceil(this.totalItems/itemsPerPageNew);
 
@@ -103,6 +103,12 @@ class HomePageComponent{
       // Otherwise re-render the current page with new items per page
       this.changePage(this.currentPage);
     }
+  }
+
+  /* Function to set current movie in data collector
+    Args: movie - movie to set current */
+  setCurrentMovie(movie: object): void {
+    dataCollector.setCurrentMovie(movie);
   }
 }
 

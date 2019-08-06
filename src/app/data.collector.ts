@@ -1,5 +1,6 @@
 // Module is responsible for collecting the data from JSON files and the server
-// responses through usage of API Communicator. Data then transmitted to Controller Component.
+// responses through usage of API Communicator. Data then transmitted to Controller Component and
+// Movie Component.
 
 import { APICommunicator } from './api.communicator';
 import data from "./movies.json"
@@ -42,9 +43,11 @@ class MovieTitlesList {
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
 class DataCollector {
-  totalDefaultMovies: number
+  totalDefaultMovies: number;
+  currentMovie: object;
   constructor() {
     this.totalDefaultMovies = defaultMoviesList.getTotalNumber();
+    this.currentMovie = null;
   }
   /* Function to load specified number of default movies
     Args: moviesList - array with spaces allocated for movie objects. Example:
@@ -81,6 +84,11 @@ class DataCollector {
     Output: number of movies */
   totalMovies(): number {
     return defaultMoviesList.getTotalNumber();
+  }
+  /* Function to set current movie
+    Args: movie - movie to set current */
+  setCurrentMovie(movie: object): void {
+    this.currentMovie = movie;
   }
 }
 
