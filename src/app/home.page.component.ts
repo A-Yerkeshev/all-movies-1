@@ -1,21 +1,9 @@
-// Component is responsible for retrieving most popular movies from OMDb server via Data Collector
-// and rendering them on the home page of the app
+/* Component is responsible for retrieving most popular movies from OMDb server via Data Service
+ and rendering them on the home page of the app */
 
 import { Component, OnInit } from '@angular/core';
-import { DataCollector } from './data.collector';
+import { DataService } from './data.service';
 import $ from "jquery/dist/jquery.js";
-
-const dataCollector = new DataCollector();
-
-let movies: Array<object> = [];
-// Allocate space in movies array. As new movies will be loaded they will be placed
-// in array according to their index in movies.json
-for (let i=0; i<=dataCollector.totalMovies(); i++) {
-  movies.push(null)
-}
-
-// Load first 15 movies
-dataCollector.loadDefaultMovies(movies, 0, 15);
 
 @Component({
   selector: 'app-home',
@@ -29,10 +17,20 @@ class HomePageComponent{
   movies: Array<object>;
   displayedMovies: Array<object>;
 
-  constructor() {
+  constructor(private dataService: DataService) {
+    let movies: Array<object> = [];
+    // Allocate space in movies array. As new movies will be loaded they will be placed
+    // in array according to their index in movies.json
+    for (let i=0; i<=dataService.totalMovies(); i++) {
+      movies.push(null)
+    }
+
+    // Load first 15 movies
+    dataService.loadDefaultMovies(movies, 0, 15);
+
     this.currentPage = 1;
     this.itemsPerPage = 15;
-    this.totalItems = dataCollector.totalDefaultMovies;
+    this.totalItems = dataService.totalDefaultMovies;
     this.lastPage = Math.ceil(this.totalItems/this.itemsPerPage);
     this.movies = movies;
     this.setDisplayedMovies(0, 15);
@@ -73,7 +71,7 @@ class HomePageComponent{
       setTimeout(function(component: HomePageComponent) {
         const firstIndex = (newPageIndex - 1) * component.itemsPerPage + 1;
         const lastIndex = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
-        dataCollector.loadDefaultMovies(component.movies, firstIndex, lastIndex);
+        component.dataService.loadDefaultMovies(component.movies, firstIndex, lastIndex);
         // Display movies on page
         component.setDisplayedMovies(firstIndex, lastIndex + 1);
 
@@ -87,7 +85,7 @@ class HomePageComponent{
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string): void {
-    dataCollector.searchMovie(title);
+    this.dataService.searchMovie(title);
   }
 
   /* Function that sets movie items to display on single page
@@ -108,7 +106,7 @@ class HomePageComponent{
   /* Function to set current movie in data collector
     Args: movie - movie to set current */
   setCurrentMovie(movie: object): void {
-    dataCollector.setCurrentMovie(movie);
+    this.dataService.setCurrentMovie(movie);
   }
 }
 
