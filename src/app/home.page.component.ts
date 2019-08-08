@@ -1,5 +1,5 @@
 /* Component is responsible for retrieving most popular movies from OMDb server via Data Service
- and rendering them on the home page of the app */
+ and rendering them on the home page of the app with home.html template */
 
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
