@@ -1,6 +1,6 @@
 <div class="container m-1 p-1 border">
   <div class="row">
-    <img class="col-4 p-0" src={{movie.Poster}}>
+    <img class="col-4 p-0 pl-3" src={{movie.Poster}}>
     <div class="col-8">
       <div class="container">
         <div class="row">
@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col p-0">
             <table class="container">
-              <tr class="row" *ngFor="let property of movie | keyvalue">
+              <tr class="row border-bottom mx-1" *ngFor="let property of movie | keyvalue">
                 <td class="col-2">{{property.key}}</td>
                 <td class="col-10 text-break">{{property.value}}</td>
               </tr>
