@@ -1,7 +1,7 @@
 <div class="container m-1 p-1 border">
   <div class="row">
-    <img class="col-4 p-0 pl-3" src={{movie.Poster}}>
-    <div class="col-8">
+    <img class="col-12 col-md-4 p-0 pl-3" src={{movie.Poster}}>
+    <div class="col-12 col-md-8">
       <div class="container">
         <div class="row">
           <h3 class="col text-center">{{movie.Title}} ({{movie.Year}})</h3>
@@ -10,8 +10,8 @@
           <div class="col p-0">
             <table class="container">
               <tr class="row border-bottom mx-1" *ngFor="let property of movie | keyvalue">
-                <td class="col-2" *ngIf="isValidForDisplay(property.value)">{{property.key}}</td>
-                <td class="col-10 text-break" *ngIf="isValidForDisplay(property.value)">{{property.value}}</td>
+                <td class="col-4 col-md-2" *ngIf="isValidForDisplay(property.value)">{{property.key}}</td>
+                <td class="col-8 col-md-10 text-break" *ngIf="isValidForDisplay(property.value)">{{property.value}}</td>
               </tr>
             </table>
           </div>
