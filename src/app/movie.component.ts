@@ -13,7 +13,7 @@ class MovieComponent{
   constructor(dataService: DataService) {
     const taxiMovie = {
       Title:"Taxi",
-      Year:"1998",
+      Year: 1998,
       Rated:"Not Rated",
       Released:"20 Nov 1998",
       Runtime:"86 min",
@@ -26,11 +26,11 @@ class MovieComponent{
       Country:"France","Awards":"3 wins & 5 nominations.",
       Poster:"https://m.media-amazon.com/images/M/MV5BMmViOGVjZWQtZmNmNS00MWU3LWFjNGEtMDc1MjNlY2ZlNjdiXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg",
       Ratings:[{
-        "Source":"Internet Movie Database",
-        "Value":"7.0/10"
+        Source:"Internet Movie Database",
+        Value:"7.0/10"
       }],
       Metascore:"N/A",
-      imdbRating:"7.0",
+      imdbRating: 7.0,
       imdbVotes:"71,960",
       imdbID:"tt0152930",
       Type:"movie",
@@ -42,6 +42,17 @@ class MovieComponent{
     }
     this.movie = taxiMovie;
 
+  }
+
+  /* Function that tells whether key-value pair of a movie object is valid to display it on the page
+    Args: value - the value to be checked
+    Output: boolean */
+  isValidForDisplay(value: any): boolean {
+    if (typeof value === 'string' || typeof value == 'number') {
+      return true
+    } else {
+      return false
+    }
   }
 }
 

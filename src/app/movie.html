@@ -10,8 +10,8 @@
           <div class="col p-0">
             <table class="container">
               <tr class="row border-bottom mx-1" *ngFor="let property of movie | keyvalue">
-                <td class="col-2">{{property.key}}</td>
-                <td class="col-10 text-break">{{property.value}}</td>
+                <td class="col-2" *ngIf="isValidForDisplay(property.value)">{{property.key}}</td>
+                <td class="col-10 text-break" *ngIf="isValidForDisplay(property.value)">{{property.value}}</td>
               </tr>
             </table>
           </div>
