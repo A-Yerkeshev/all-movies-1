@@ -1,15 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HomePageComponent } from './home.page.component';
-import { MovieComponent } from './movie.component';
+import { PopularComponent } from './popular.component';
+import { DetailsComponent } from './details.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    HomePageComponent,
-    MovieComponent,
+    PopularComponent,
+    DetailsComponent,
     AppComponent
   ],
   imports: [

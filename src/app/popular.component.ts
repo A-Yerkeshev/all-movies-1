@@ -6,10 +6,10 @@ import { DataService } from './data.service';
 import $ from "jquery/dist/jquery.js";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.html'
+  selector: 'app-popular',
+  templateUrl: './popular.html'
 })
-class HomePageComponent{
+class PopularComponent{
   currentPage: number;
   itemsPerPage: number;
   totalItems: number;
@@ -68,7 +68,7 @@ class HomePageComponent{
       $('.top-movies').append(spinner);
 
       // To load movies asynchronously, wrap it into setTimeout function
-      setTimeout(function(component: HomePageComponent) {
+      setTimeout(function(component: PopularComponent) {
         const firstIndex = (newPageIndex - 1) * component.itemsPerPage + 1;
         const lastIndex = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
         component.dataService.loadDefaultMovies(component.movies, firstIndex, lastIndex);
@@ -110,4 +110,4 @@ class HomePageComponent{
   }
 }
 
-export { HomePageComponent }
+export { PopularComponent }

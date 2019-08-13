@@ -1,4 +1,4 @@
-/* Movie component is responsible for showing more detailed information about the movie that user selected. It gets
+/* Component is responsible for showing more detailed information about the movie that user selected. It gets
   the data from Data Service and interacts with user through movie.html template */
 
 import { Component } from '@angular/core';
@@ -6,9 +6,9 @@ import { DataService } from './data.service';
 
 @Component({
   selector: 'app-movie',
-  templateUrl: './movie.html'
+  templateUrl: './details.html'
 })
-class MovieComponent{
+class DetailsComponent{
   movie: object;
   constructor(dataService: DataService) {
     this.movie = dataService.currentMovie;
@@ -26,4 +26,4 @@ class MovieComponent{
   }
 }
 
-export { MovieComponent }
+export { DetailsComponent }
