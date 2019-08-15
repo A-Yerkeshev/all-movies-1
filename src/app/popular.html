@@ -17,9 +17,9 @@
     <div class="col-6 col-md-3 pr-0">
       <h6 class="align-bottom d-inline-block mr-1">Movies per page: </h6>
       <select class="custom-select mt-2 w-auto" (change)="setItemsPerPage($event.target.value)">
-        <option value=15>15</option>
-        <option value=30>30</option>
-        <option value=45>45</option>
+        <option value=15 [selected]="itemsPerPage == 15">15</option>
+        <option value=30 [selected]="itemsPerPage == 30">30</option>
+        <option value=45 [selected]="itemsPerPage == 45">45</option>
       </select>
     </div>
     <ul class="col-6 col-md-3 pagination mt-2">
