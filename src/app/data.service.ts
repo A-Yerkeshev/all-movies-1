@@ -43,23 +43,32 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-
 @Injectable({
   providedIn: 'root'
 })
 class DataService {
   totalDefaultMovies: number;
   currentMovie: object;
+  movies: Array<object>;
   constructor() {
+    let movies: Array<object> = [];
+    // Allocate space in movies array. As new movies will be loaded they will be placed
+    // in array according to their index in movies.json
+    for (let i=0; i<=this.totalMovies(); i++) {
+      movies.push(null)
+    }
+
     this.totalDefaultMovies = defaultMoviesList.getTotalNumber();
     this.currentMovie = null;
+    this.movies = movies;
+
+    // Load first 15 movies
+    this.loadDefaultMovies(0, 15);
   }
-  /* Function to load specified number of default movies
-    Args: moviesList - array with spaces allocated for movie objects. Example:
-            [null, movieObject, movieObject, ... null]
-          firstIndex - index of movie to start loading from
+  /* Function to load specified number of default movies to DataService.movies parameter
+    Args: firstIndex - index of movie to start loading from
           lastIndex - last index of movie to be loaded */
-  loadDefaultMovies(moviesList: Array<object>, firstIndex: number, lastIndex: number): void {
+  loadDefaultMovies(firstIndex: number, lastIndex: number): void {
     // First check if required movies are already loaded
     const from: number = defaultMoviesList.loaded.indexOf(firstIndex);
     const to: number = defaultMoviesList.loaded.indexOf(lastIndex + 1);
@@ -68,12 +77,12 @@ class DataService {
     if (checkArray.length == lastIndex - firstIndex + 1) {
       return
     } else {
-      // Otherwise fill empty spaces in moviesList by movie objects
+      // Otherwise fill empty spaces in movies list by movie objects
       let currentIndex: number = firstIndex;
       while (currentIndex <= lastIndex) {
-        if (moviesList[currentIndex] == null) {
+        if (this.movies[currentIndex] == null) {
           const movie = apiCommunicator.loadDefaultMovie(defaultMoviesList, currentIndex);
-          moviesList[currentIndex] = movie;
+          this.movies[currentIndex] = movie;
         }
         currentIndex++;
       }

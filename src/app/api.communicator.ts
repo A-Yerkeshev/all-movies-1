@@ -30,7 +30,11 @@ const loadMovie: (arg1: string, arg2?: boolean)=> Response =
       async: false,
       success: function(response: Response) {
         result = response;
-      }
+      },
+      error: function(error: object) {
+        result = null;
+      },
+      timeout: 3000
     })
     return result;
   }

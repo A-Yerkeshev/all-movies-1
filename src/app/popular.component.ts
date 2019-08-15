@@ -18,22 +18,26 @@ class PopularComponent{
   displayedMovies: Array<object>;
 
   constructor(private dataService: DataService) {
-    let movies: Array<object> = [];
-    // Allocate space in movies array. As new movies will be loaded they will be placed
-    // in array according to their index in movies.json
-    for (let i=0; i<=dataService.totalMovies(); i++) {
-      movies.push(null)
+    // Set properties according to data from session storage
+    const currentPage: string = sessionStorage.getItem('currentPage');
+    const itemsPerPage: string = sessionStorage.getItem('itemsPerPage');
+    if (currentPage) {
+      this.currentPage = parseInt(currentPage);
+    } else {
+      this.currentPage = 1;
     }
-
-    // Load first 15 movies
-    dataService.loadDefaultMovies(movies, 0, 15);
-
-    this.currentPage = 1;
-    this.itemsPerPage = 15;
+    if (itemsPerPage) {
+      this.itemsPerPage = parseInt(itemsPerPage);
+    } else {
+      this.itemsPerPage = 15;
+    }
     this.totalItems = dataService.totalDefaultMovies;
     this.lastPage = Math.ceil(this.totalItems/this.itemsPerPage);
-    this.movies = movies;
-    this.setDisplayedMovies(0, 15);
+    this.movies = dataService.movies;
+
+    const lastIndex: number = this.currentPage * this.itemsPerPage;
+    const firstIndex: number = this.currentPage * this.itemsPerPage - this.itemsPerPage;
+    this.setDisplayedMovies(firstIndex, lastIndex);
   }
 
   /* Function to create array of movies to display from list of loaded movies
@@ -69,9 +73,9 @@ class PopularComponent{
 
       // To load movies asynchronously, wrap it into setTimeout function
       setTimeout(function(component: PopularComponent) {
-        const firstIndex = (newPageIndex - 1) * component.itemsPerPage + 1;
-        const lastIndex = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
-        component.dataService.loadDefaultMovies(component.movies, firstIndex, lastIndex);
+        const firstIndex: number = (newPageIndex - 1) * component.itemsPerPage + 1;
+        const lastIndex: number = (newPageIndex - 1) * component.itemsPerPage + component.itemsPerPage;
+        component.dataService.loadDefaultMovies(firstIndex, lastIndex);
         // Display movies on page
         component.setDisplayedMovies(firstIndex, lastIndex + 1);
 
@@ -79,6 +83,8 @@ class PopularComponent{
         $('.spinner-sheet').remove();
       }, 10, this);
       this.currentPage = newPageIndex;
+      // Remember what last page was open
+      sessionStorage.setItem('currentPage', newPageIndex.toString());
     }
   }
 
@@ -89,8 +95,9 @@ class PopularComponent{
   }
 
   /* Function that sets movie items to display on single page
-    Args: itemsPerPageNew - number of movie items to set */
-  setItemsPerPage(itemsPerPageNew: number): void {
+    Args: itemsPerPageNewString - string value of number of movie items to set */
+  setItemsPerPage(itemsPerPageNewString: string): void {
+    const itemsPerPageNew: number = parseInt(itemsPerPageNewString);
     this.itemsPerPage = itemsPerPageNew;
     this.lastPage = Math.ceil(this.totalItems/itemsPerPageNew);
 
@@ -101,6 +108,9 @@ class PopularComponent{
       // Otherwise re-render the current page with new items per page
       this.changePage(this.currentPage);
     }
+
+    // Remember itemsPerPage parameter
+    sessionStorage.setItem('itemsPerPage', itemsPerPageNew.toString());
   }
 
   /* Function to set current movie in data collector

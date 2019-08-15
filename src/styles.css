@@ -22,7 +22,7 @@ a:hover {
 }
 
 .spinner-sheet {
-  height: 250%;
+  height: 100vh;
 }
 
 .spinner-border {
