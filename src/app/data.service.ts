@@ -64,9 +64,20 @@ class DataService {
 
     // Load movies for the first page
     const currentPageString: string = sessionStorage.getItem('currentPage');
-    const currentPage: number = parseInt(currentPageString);
     const itemsPerPageString: string = sessionStorage.getItem('itemsPerPage');
-    const itemsPerPage: number = parseInt(itemsPerPageString);
+    let currentPage: number;
+    let itemsPerPage: number;
+    if (currentPageString) {
+      currentPage = parseInt(currentPageString);
+    } else {
+      currentPage = 1;
+    }
+    if (itemsPerPageString) {
+      itemsPerPage = parseInt(itemsPerPageString);
+    } else {
+      itemsPerPage = 15;
+    }
+
     const lastIndex: number = currentPage * itemsPerPage;
     const firstIndex: number = currentPage * itemsPerPage - itemsPerPage;
     this.loadDefaultMovies(firstIndex, lastIndex);
