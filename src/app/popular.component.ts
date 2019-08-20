@@ -2,7 +2,7 @@
  and rendering them on the home page of the app with home.html template */
 
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService, Movie } from './data.service';
 import $ from "jquery/dist/jquery.js";
 
 @Component({
@@ -91,7 +91,10 @@ class PopularComponent{
   /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
     Args: title - title of the movie user searches for */
   search(title: string): void {
-    this.dataService.searchMovie(title);
+    const movies: Array<Movie> = this.dataService.searchMovie(title);
+    if (movies) {
+      console.log(movies)
+    }
   }
 
   /* Function that sets movie items to display on single page

@@ -2,7 +2,7 @@
 // and retreive the responce in TypeScript operatable format. API Communicator is used
 // by Data Collector.
 
-import { MovieTitlesList } from "./data.service"
+import { MovieTitlesList, Movie } from "./data.service"
 import $ from "jquery/dist/jquery.js";
 
 /* Function to send AJAX request to OMDb API
