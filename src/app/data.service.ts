@@ -43,33 +43,39 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-// Interface of movie object
- interface Movie{
-  Title: string,
-  Year: string,
-  Rated: string,
-  Released: string,
-  Runtime: string,
-  Genre: string,
-  Director: string,
-  Writer: string,
-  Actors: string,
-  Plot: string,
-  Language: string,
-  Country: string,
-  Awards: string,
-  Poster: string,
-  Ratings:Array<object>,
-  Metascore: string,
-  imdbRating: string,
-  imdbVotes: string,
-  imdbID: string,
-  Type: string,
-  DVD: string,
-  BoxOffice: string,
-  Production: string,
-  Website: string,
-  Response: string
+// Class of movie object
+class Movie{
+  Title: string
+  Year: string
+  Rated?: string
+  Released?: string
+  Runtime?: string
+  Genre?: string
+  Director?: string
+  Writer?: string
+  Actors?: string
+  Plot?: string
+  Language?: string
+  Country?: string
+  Awards?: string
+  Poster: string
+  Ratings?:Array<object>
+  Metascore?: string
+  imdbRating?: string
+  imdbVotes?: string
+  imdbID: string
+  Type: string
+  DVD?: string
+  BoxOffice?: string
+  Production?: string
+  Website?: string
+  Response?: string
+}
+
+// If server response contains multiple movie objects, the array shall be accessed through
+// .Search property
+class MovieSearch {
+  Search?: Array<Movie>
 }
 
 @Injectable({
@@ -137,7 +143,7 @@ class DataService {
   /* Function that recieves searched movie title from Controller Component, makes corresponding
       AJAX request through API Communicator and returns movies found
     Args: title - title of the movie user searches for */
-  searchMovie(title: string): Array<object> {
+  searchMovie(title: string): Array<Movie> {
     return apiCommunicator.searchMovie(title);
   }
   /* Function to return total number of default movies
@@ -152,4 +158,4 @@ class DataService {
   }
 }
 
-export { DataService, MovieTitlesList, Movie }
+export { DataService, MovieTitlesList, Movie, MovieSearch }

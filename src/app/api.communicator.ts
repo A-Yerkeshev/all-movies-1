@@ -2,7 +2,7 @@
 // and retreive the responce in TypeScript operatable format. API Communicator is used
 // by Data Collector.
 
-import { MovieTitlesList, Movie } from "./data.service"
+import { MovieTitlesList, Movie, MovieSearch } from "./data.service"
 import $ from "jquery/dist/jquery.js";
 
 /* Function to send AJAX request to OMDb API
@@ -13,10 +13,10 @@ import $ from "jquery/dist/jquery.js";
   Notes: if function is used to retrieve single movie object it should be used
     with following syntax: loadMovie(title). If function is used to retrieve an
     array of matched movies the syntax is: loadMovie(title, true).Search */
-const loadMovie: (arg1: string, arg2?: boolean)=> Response =
-  function(title: string, search: boolean = false): Response {
+const loadMovie: (arg1: string, arg2?: boolean)=> Movie|MovieSearch =
+  function(title: string, search: boolean = false): Movie|MovieSearch {
     let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
-    let result: Response;
+    let result: Movie|MovieSearch;
 
     if (search === true) {
       url += 's=' + title;
@@ -28,7 +28,7 @@ const loadMovie: (arg1: string, arg2?: boolean)=> Response =
     $.ajax({
       url: url,
       async: false,
-      success: function(response: Response) {
+      success: function(response: Movie|MovieSearch) {
         result = response;
       },
       error: function(error: object) {
@@ -39,12 +39,6 @@ const loadMovie: (arg1: string, arg2?: boolean)=> Response =
     return result;
   }
 
-// If server response contains multiple movie objects, the array shall be accessed through
-// .Search property
-interface Response {
-  Search?: Array<object>
-}
-
 class APICommunicator {
   constructor() {
   }
@@ -52,13 +46,13 @@ class APICommunicator {
     Args: titlesList - instance of MovieTitlesList class initialized in data.component.ts
         index - index of default movie title
     Output: movie object */
-  loadDefaultMovie(titlesList: MovieTitlesList, index: number): object {
-    let result: object = null;
-    let title: string = titlesList.getMovieTitle(index);
-    let response: object = loadMovie(title);
+  loadDefaultMovie(titlesList: MovieTitlesList, index: number): Movie {
+    const title: string = titlesList.getMovieTitle(index);
+    const response: Movie|MovieSearch = loadMovie(title);
+    let result: Movie = null;
 
     if (title) {
-      if (response) {
+      if (response && response instanceof Movie) {
         result = response;
         titlesList.markLoaded(index);
       }
@@ -69,9 +63,13 @@ class APICommunicator {
   /* Function to load the movie by user search
     Args: title - title of the movie user searches for
     Output: array of matched movies */
-  searchMovie(title: string): Array<object> {
-    let result: Array<object>;
-    result = loadMovie(title, true).Search;
+  searchMovie(title: string): Array<Movie> {
+    const response: Movie|MovieSearch = loadMovie(title, true);
+    let result: Array<Movie> = null;
+
+    if (response && response instanceof MovieSearch) {
+      result = response.Search;
+    }
     return result;
   }
 }
