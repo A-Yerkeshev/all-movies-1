@@ -65,6 +65,7 @@ class PopularComponent{
   changePage(newPageIndex: number): void {
     // Check if new page index is valid
     if (newPageIndex > 0 && newPageIndex <= this.lastPage) {
+      this.displayedMovies = [];
       // Display loading spinner while new movies are loading
       const spinner: string = `<div class="position-absolute w-100 bg-white text-center spinner-sheet">
         <div class="spinner-border text-secondary mt-5" role="status"><span class="sr-only">Loading...</span></div>
