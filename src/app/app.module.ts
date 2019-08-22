@@ -6,13 +6,15 @@ import { DetailsComponent } from './details.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomizationComponent } from './customization.component';
+import { SearchResultComponent } from './search.result.component';
 
 @NgModule({
   declarations: [
     PopularComponent,
     DetailsComponent,
     AppComponent,
-    CustomizationComponent
+    CustomizationComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,
