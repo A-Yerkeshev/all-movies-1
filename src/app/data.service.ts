@@ -43,8 +43,8 @@ class MovieTitlesList {
 }
 const defaultMoviesList = new MovieTitlesList(data.movies);
 
-// Class of movie object
-class Movie{
+// Interface of movie object
+interface Movie{
   Title: string
   Year: string
   Rated?: string
@@ -74,8 +74,19 @@ class Movie{
 
 // If server response contains multiple movie objects, the array shall be accessed through
 // .Search property
-class MovieSearch {
+interface MovieSearch {
   Search?: Array<Movie>
+}
+
+// Define type guards for Movie and MovieSearch interfaces
+/* Args: response - response retrieved from the server. Might be a movie object, a movie search object
+    Output: response of server interpreted by TypeScript as movie or as movie search object*/
+function movieGuard(response: Movie | MovieSearch): response is Movie {
+  return response as Movie !== undefined;
+}
+
+function movieSearchGuard(response: Movie | MovieSearch): response is MovieSearch {
+  return response as MovieSearch !== undefined;
 }
 
 @Injectable({
@@ -158,4 +169,4 @@ class DataService {
   }
 }
 
-export { DataService, MovieTitlesList, Movie, MovieSearch }
+export { DataService, MovieTitlesList, Movie, MovieSearch, movieGuard, movieSearchGuard }

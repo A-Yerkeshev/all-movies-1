@@ -1,8 +1,8 @@
 // Module is responside for communication with the server, sending AJAX requests to it
 // and retreive the responce in TypeScript operatable format. API Communicator is used
-// by Data Collector.
+// by Data Service.
 
-import { MovieTitlesList, Movie, MovieSearch } from "./data.service"
+import { MovieTitlesList, Movie, MovieSearch, movieGuard, movieSearchGuard } from "./data.service"
 import $ from "jquery/dist/jquery.js";
 
 /* Function to send AJAX request to OMDb API
@@ -52,7 +52,7 @@ class APICommunicator {
     let result: Movie = null;
 
     if (title) {
-      if (response && response instanceof Movie) {
+      if (response && movieGuard(response)) {
         result = response;
         titlesList.markLoaded(index);
       }
@@ -67,7 +67,7 @@ class APICommunicator {
     const response: Movie|MovieSearch = loadMovie(title, true);
     let result: Array<Movie> = null;
 
-    if (response && response instanceof MovieSearch) {
+    if (response && movieSearchGuard(response)) {
       result = response.Search;
     }
     return result;
