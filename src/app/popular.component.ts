@@ -3,6 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DataService, Movie } from './data.service';
+import {Router} from "@angular/router";
 import $ from "jquery/dist/jquery.js";
 
 @Component({
@@ -17,7 +18,7 @@ class PopularComponent{
   movies: Array<object>;
   displayedMovies: Array<object>;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
     // Set properties according to data from session storage
     const currentPage: string = sessionStorage.getItem('currentPage');
     const itemsPerPage: string = sessionStorage.getItem('itemsPerPage');
@@ -89,13 +90,10 @@ class PopularComponent{
     }
   }
 
-  /* Function to pass searched title of the movie to Data Collector and render recieved movies on page
+  /* Function to pass searched title of the movie as parameter of query string and redirect to search page
     Args: title - title of the movie user searches for */
   search(title: string): void {
-    const movies: Array<Movie> = this.dataService.searchMovie(title);
-    if (movies) {
-      console.log(movies)
-    }
+    this.router.navigate(['/search'], {queryParams: {title}});
   }
 
   /* Function that sets movie items to display on single page
