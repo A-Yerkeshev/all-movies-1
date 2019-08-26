@@ -6,7 +6,7 @@ import { DetailsComponent } from './details.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomizationComponent } from './customization.component';
-import { SearchResultComponent } from './search.result.component';
+import { SearchComponent } from './search.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { SearchResultComponent } from './search.result.component';
     DetailsComponent,
     AppComponent,
     CustomizationComponent,
-    SearchResultComponent
+    SearchComponent
   ],
   imports: [
     BrowserModule,

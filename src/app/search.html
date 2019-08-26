@@ -1,0 +1,21 @@
+<div class="container m-0 d-inline p-0">
+  <div class="row justify-content-between border-bottom">
+    <div class="col-6 col-md-8">
+      <h2 class="ml-3 mt-1 d-inline-block">Search by title: "{{searchTitle}}"</h2>
+    </div>
+    <div class="input-group col-6 col-md-4">
+      <div class="search-area input-group mt-2 mb-1 mr-1">
+        <input #searchbox type="text" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+          <button class="fa fa-search btn btn-success" type="button" (click)="search(searchbox.value)"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="searchResult; else errorMessage">
+    <p *ngFor="let result of searchResult">{{result.Title}}</p>
+  </div>
+  <ng-template #errorMessage>
+    <h3 class="border border-success text-center mt-1 p-3">No movies matched your search!</h3>
+  </ng-template>
+</div>
