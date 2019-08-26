@@ -12,8 +12,13 @@
       </div>
     </div>
   </div>
-  <div *ngIf="searchResult; else errorMessage">
-    <p *ngFor="let result of searchResult">{{result.Title}}</p>
+  <div class="row justify-content-center top-movies" *ngIf="searchResult; else errorMessage">
+    <a class="card col-4 col-sm-3 col-md-2 p-0 m-1" *ngFor="let movie of searchResult" routerLink="/{{movie.imdbID}}"routerLinkActive="active" (click)=setCurrentMovie(movie)>
+      <img src={{movie.Poster}} class="card-img">
+      <div class="card-body p-0 pt-1 border border-secondary">
+        <h5 class="card-title text-center text-dark">{{movie.Title}}</h5>
+      </div>
+    </a>
   </div>
   <ng-template #errorMessage>
     <h3 class="border border-success text-center mt-1 p-3">No movies matched your search!</h3>

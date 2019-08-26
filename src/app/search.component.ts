@@ -30,4 +30,10 @@ export class SearchComponent{
     this.searchResult = this.dataService.searchMovie(title);
   }
 
+  /* Function to set current movie in data collector
+    Args: movie - movie to set current */
+  setCurrentMovie(movie: object): void {
+    this.dataService.setCurrentMovie(movie);
+  }
+
 }
