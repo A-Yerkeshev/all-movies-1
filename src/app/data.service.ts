@@ -167,6 +167,12 @@ class DataService {
   setCurrentMovie(movie: object): void {
     this.currentMovie = movie;
   }
+  /* Function to load single movie by title
+    Args: title - title of the movie to load
+    Output: movie object */
+  getMovie(title: string): Movie {
+    return apiCommunicator.loadMovie(title);
+  }
 }
 
 export { DataService, MovieTitlesList, Movie, MovieSearch, movieGuard, movieSearchGuard }

@@ -72,6 +72,20 @@ class APICommunicator {
     }
     return result;
   }
+
+  /* Function to load single movie by title
+    Args: title - title of the movie to load
+    Output: movie object */
+  loadMovie(title: string): Movie {
+    const response: Movie|MovieSearch = loadMovie(title);
+    let result: Movie = null
+
+    if (response && movieGuard(response)) {
+      result = response;
+    }
+
+    return result;
+  }
 }
 
 export { APICommunicator };

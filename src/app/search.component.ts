@@ -31,8 +31,11 @@ export class SearchComponent{
   }
 
   /* Function to set current movie in data collector
-    Args: movie - movie to set current */
-  setCurrentMovie(movie: object): void {
+    Args: title - title of the movie to set current */
+  setCurrentMovie(title: string): void {
+    // First get more detailed info about selected movie
+    const movie = this.dataService.getMovie(title);
+    // Then set it as current
     this.dataService.setCurrentMovie(movie);
   }
 
