@@ -75,7 +75,7 @@ interface Movie{
 // If server response contains multiple movie objects, the array shall be accessed through
 // .Search property
 interface MovieSearch {
-  Search?: Array<Movie>
+  Search: Array<Movie>
 }
 
 // Define type guards for Movie and MovieSearch interfaces

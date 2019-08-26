@@ -2,7 +2,7 @@
 template. */
 
 import { Component } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService, Movie } from './data.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,9 +11,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchResultComponent{
   searchTitle: string;
+  searchResult: Array<Movie>;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
-    this.searchTitle = this.route.snapshot.queryParamMap.get('title');
+    const title = this.route.snapshot.queryParamMap.get('title');
+    this.searchTitle = title;
+    this.searchResult = dataService.searchMovie(title);
+    console.log(this.searchResult)
   }
 
 }
