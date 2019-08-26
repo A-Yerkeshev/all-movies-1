@@ -3,7 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DataService, Movie } from './data.service';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import $ from "jquery/dist/jquery.js";
 
 @Component({

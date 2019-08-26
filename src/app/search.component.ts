@@ -3,7 +3,7 @@ template. */
 
 import { Component } from '@angular/core';
 import { DataService, Movie } from './data.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import $ from "jquery/dist/jquery.js";
 
 @Component({
@@ -14,12 +14,20 @@ export class SearchComponent{
   searchTitle: string;
   searchResult: Array<Movie>;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     const title: string = this.route.snapshot.queryParamMap.get('title');
 
     this.searchTitle = title;
     this.searchResult = dataService.searchMovie(title);
 
+  }
+
+  /* Function to make new seacrh by another title
+    Args: title - title of movie to search for */
+  search(title: string): void {
+    this.router.navigate(['/search'], {queryParams: {title}});
+    this.searchTitle = title;
+    this.searchResult = this.dataService.searchMovie(title);
   }
 
 }
