@@ -117,9 +117,12 @@ class PopularComponent{
 
   /* Function to set current movie in data collector
     Args: movie - movie to set current */
-  setCurrentMovie(movie: object): void {
+  setCurrentMovie(movie: Movie): void {
     this.dataService.setCurrentMovie(movie);
-
+    // Store viewed movie title in local storage
+    const recentMoviesNum: number = parseInt(localStorage.getItem('recentMoviesNum'));
+    localStorage.setItem((Date.now()).toString(), movie.Title);
+    localStorage.setItem('recentMoviesNum', (recentMoviesNum + 1).toString());
   }
 }
 

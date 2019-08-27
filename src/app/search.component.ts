@@ -37,6 +37,10 @@ export class SearchComponent{
     const movie = this.dataService.getMovie(title);
     // Then set it as current
     this.dataService.setCurrentMovie(movie);
+    // Store viewed movie title in local storage
+    const recentMoviesNum: number = parseInt(localStorage.getItem('recentMoviesNum'));
+    localStorage.setItem((Date.now()).toString(), movie.Title);
+    localStorage.setItem('recentMoviesNum', (recentMoviesNum + 1).toString());
   }
 
 }
