@@ -178,11 +178,16 @@ class DataService {
   getRecentMovies(): Array<Movie> {
     let result: Array<Movie> = [];
 
-
-
-
-
-
+    for (let i=0; i<localStorage.length; i++) {
+      const key: string = localStorage.key(i);
+      if ( key !== 'recentMoviesNum') {
+        const title: string = localStorage.getItem(key);
+        const movie: Movie = apiCommunicator.loadMovie(title);
+        if (movie) {
+          result.push(movie);
+        }
+      }
+    }
     return result;
   }
 }
