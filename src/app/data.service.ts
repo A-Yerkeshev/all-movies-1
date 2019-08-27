@@ -173,6 +173,18 @@ class DataService {
   getMovie(title: string): Movie {
     return apiCommunicator.loadMovie(title);
   }
+  /* Function to build an array of recently viewed movies by data from the local storage
+    Output: array of movie objects */
+  getRecentMovies(): Array<Movie> {
+    let result: Array<Movie> = [];
+
+
+
+
+
+
+    return result;
+  }
 }
 
 export { DataService, MovieTitlesList, Movie, MovieSearch, movieGuard, movieSearchGuard }
