@@ -119,6 +119,7 @@ class PopularComponent{
     Args: movie - movie to set current */
   setCurrentMovie(movie: object): void {
     this.dataService.setCurrentMovie(movie);
+
   }
 }
 

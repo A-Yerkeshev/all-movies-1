@@ -9,7 +9,14 @@ import { Component } from '@angular/core';
 })
 class CustomizationComponent {
 
-  constructor() { }
+  constructor() {
+    /* If this is the first time user is using the app, define parameter in local storage to keep track of user's
+    recently viewed movies */
+    const recentMoviesNum = localStorage.getItem('recentMoviesNum');
+    if (recentMoviesNum == undefined) {
+      localStorage.setItem('recentMoviesNum', '0');
+    }
+  }
 
 }
 
