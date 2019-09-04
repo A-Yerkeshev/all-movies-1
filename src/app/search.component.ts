@@ -37,23 +37,6 @@ export class SearchComponent{
     const movie: Movie = this.dataService.getMovie(title);
     // Then set it as current
     this.dataService.setCurrentMovie(movie);
-    // Store viewed movie title in local storage
-    const recentMoviesNum: number = parseInt(localStorage.getItem('recentMoviesNum'));
-    localStorage.setItem((Date.now()).toString(), movie.Title);
-    // If number of movies stored in local storage is 15 - remove oldest movie - otherwise increment
-    // recentMoviesNum by one.
-    if (recentMoviesNum == 15) {
-      let oldest: number = 0;
-      for (let i=0; i<localStorage.length; i++) {
-        const utcDate: number = parseInt(localStorage.key(i));
-        if (utcDate && utcDate > oldest) {
-          oldest = utcDate;
-        }
-      }
-      localStorage.removeItem(oldest.toString());
-    } else {
-      localStorage.setItem('recentMoviesNum', (recentMoviesNum + 1).toString());
-    }
   }
 
 }

@@ -89,6 +89,32 @@ function movieSearchGuard(response: Movie | MovieSearch): response is MovieSearc
   return response as MovieSearch !== undefined;
 }
 
+/* Function to add viewed movies to local storage
+  Args: title - movie title to add to the storage */
+function addToLocalStorage(title: string): void {
+  const recentMoviesNum: number = parseInt(localStorage.getItem('recentMoviesNum'));
+  const intialLength: number = localStorage.length;
+  localStorage.setItem(title, (Date.now()).toString());
+  const newLength: number = localStorage.length;
+  // If number of movies stored in local storage is 15 - remove oldest movie - otherwise increment
+  // recentMoviesNum by one if movie title was not present in local storage.
+  if (recentMoviesNum == 15) {
+    let oldestTitle: string;
+    let oldestDate: number = 0;
+    for (let i=0; i<localStorage.length; i++) {
+      const currentTitle: string = localStorage.key(i);
+      const utcDate: number = parseInt(localStorage.getItem(currentTitle));
+      if (utcDate && utcDate > oldestDate) {
+        oldestTitle = currentTitle;
+        oldestDate = utcDate;
+      }
+    }
+    localStorage.removeItem(oldestTitle);
+  } else if (newLength > intialLength) {
+    localStorage.setItem('recentMoviesNum', (recentMoviesNum + 1).toString());
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -164,8 +190,9 @@ class DataService {
   }
   /* Function to set current movie
     Args: movie - movie to set current */
-  setCurrentMovie(movie: object): void {
+  setCurrentMovie(movie: Movie): void {
     this.currentMovie = movie;
+    addToLocalStorage(movie.Title);
   }
   /* Function to load single movie by title
     Args: title - title of the movie to load
@@ -179,9 +206,8 @@ class DataService {
     let result: Array<Movie> = [];
 
     for (let i=0; i<localStorage.length; i++) {
-      const key: string = localStorage.key(i);
-      if ( key !== 'recentMoviesNum') {
-        const title: string = localStorage.getItem(key);
+      const title: string = localStorage.key(i);
+      if ( title !== 'recentMoviesNum') {
         const movie: Movie = apiCommunicator.loadMovie(title);
         if (movie) {
           result.push(movie);
