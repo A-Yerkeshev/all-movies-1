@@ -96,9 +96,9 @@ function addToLocalStorage(title: string): void {
   const intialLength: number = localStorage.length;
   localStorage.setItem(title, (Date.now()).toString());
   const newLength: number = localStorage.length;
-  // If number of movies stored in local storage is 15 - remove oldest movie - otherwise increment
+  // If number of movies stored in local storage is 20 - remove oldest movie - otherwise increment
   // recentMoviesNum by one if movie title was not present in local storage.
-  if (recentMoviesNum == 15) {
+  if (recentMoviesNum == 20) {
     let oldestTitle: string;
     let oldestDate: number = 0;
     for (let i=0; i<localStorage.length; i++) {
