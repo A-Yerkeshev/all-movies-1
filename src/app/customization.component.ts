@@ -9,9 +9,8 @@ import { DataService, Movie } from './data.service';
         propertyName - name of the property to predict
   Output: array of the values with highest occurency rate for specified property*/
 function predict(recentMovies: Array<Movie>, propertyName: string): Array<string> {
-  // Forst check if provided property name is valid
-  let movie: Movie = recentMovies[0];
-  if (movie[propertyName] == undefined) {
+  // Forst check if provided property name is valid and recentMovies array is not empty
+  if (recentMovies.length == 0 || recentMovies[0][propertyName] == undefined) {
     return;
   }
 
@@ -30,12 +29,14 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
   recentMovies.forEach(function(movie) {
     const values: Array<string> = movie[propertyName].split(', ');
     values.forEach(function(value) {
-      // If value already occured before, increment the value by 1
-      if (occurenciesList[value]) {
-        occurenciesList[value] += 1;
-      } else {
-        // Otherwise add new value and set it to 1
-        occurenciesList[value] = 1;
+      if (value != 'N/A') {
+        // If value already occured before, increment the value by 1
+        if (occurenciesList[value]) {
+          occurenciesList[value] += 1;
+        } else {
+          // Otherwise add new value and set it to 1
+          occurenciesList[value] = 1;
+        }
       }
     })
   })
@@ -60,11 +61,7 @@ class BrainClass {
     Args: recentMovies - array of recently viewed movies
     Output: array of genre names */
   predictGenre(recentMovies: Array<Movie>): Array<string> {
-    if (recentMovies.length > 0) {
-      return predict(recentMovies, 'Genre');
-    } else {
-      return;
-    }
+    return predict(recentMovies, 'Genre');
   }
 }
 const Brain = new BrainClass;
