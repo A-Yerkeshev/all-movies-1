@@ -70,10 +70,6 @@ class BrainClass {
     return predict(recentMovies, 'Production');
   }
 }
-const Brain = new BrainClass;
-const dataService = new DataService;
-console.log(Brain.predictGenre(dataService.getRecentMovies()));
-console.log(Brain.predictProduction(dataService.getRecentMovies()));
 
 @Component({
   selector: 'app-home',
@@ -81,8 +77,11 @@ console.log(Brain.predictProduction(dataService.getRecentMovies()));
 })
 class CustomizationComponent {
   recentMovies: Array<Movie>;
+  relevantMovies: Array<Movie>;
 
   constructor(private dataService: DataService) {
+    const Brain = new BrainClass;
+
     /* If this is the first time user is using the app, define parameter in local storage to keep track of user's
     recently viewed movies */
     const recentMoviesNum: string = localStorage.getItem('recentMoviesNum');
@@ -90,7 +89,12 @@ class CustomizationComponent {
       localStorage.setItem('recentMoviesNum', '0');
     }
 
-    this.recentMovies = dataService.getRecentMovies();
+    //Build an array of movies user might be interested in
+    const recentMovies: Array<Movie> = dataService.getRecentMovies();
+    const genre: Array<string> = Brain.predictGenre(recentMovies);
+    const production: Array<string> = Brain.predictProduction(recentMovies);
+
+    this.recentMovies = recentMovies;
   }
 
   /* Function to set current movie in data collector
