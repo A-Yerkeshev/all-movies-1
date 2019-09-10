@@ -31,6 +31,9 @@
       <li class="page-item" *ngIf="currentPage != 1" (click)="changePage(1)">
         <a class="page-link" >1</a>
       </li>
+      <li class="page-item" (click)="changePage(currentPage-3)">
+        <a class="page-link" *ngIf="currentPage-2 > 1 && currentPage-3 != 1">...</a>
+      </li>
       <li class="page-item" (click)="changePage(currentPage-2)">
         <a class="page-link" *ngIf="currentPage > 3">{{currentPage-2}}</a>
       </li>
