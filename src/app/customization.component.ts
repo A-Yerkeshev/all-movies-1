@@ -63,10 +63,17 @@ class BrainClass {
   predictGenre(recentMovies: Array<Movie>): Array<string> {
     return predict(recentMovies, 'Genre');
   }
+  /* Function to predict the production of movies user is interested in
+    Args: recentMovies - array of recently viewed movies
+    Output: array of production names */
+  predictProduction(recentMovies: Array<Movie>): Array<string> {
+    return predict(recentMovies, 'Production');
+  }
 }
 const Brain = new BrainClass;
 const dataService = new DataService;
 console.log(Brain.predictGenre(dataService.getRecentMovies()));
+console.log(Brain.predictProduction(dataService.getRecentMovies()));
 
 @Component({
   selector: 'app-home',
