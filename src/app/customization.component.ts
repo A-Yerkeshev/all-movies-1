@@ -4,61 +4,72 @@ keeps track of user's preferences through usage of local storage of the browser.
 import { Component } from '@angular/core';
 import { DataService, Movie } from './data.service';
 
+/* Prediction function used by Brain to make predictions of genre, production and other properties of movies
+  Args: recentMovies - array of recently viewed movies,
+        propertyName - name of the property to predict
+  Output: array of the values with highest occurency rate for specified property*/
+function predict(recentMovies: Array<Movie>, propertyName: string): Array<string> {
+  // Forst check if provided property name is valid
+  let movie: Movie = recentMovies[0];
+  if (movie[propertyName] == undefined) {
+    return;
+  }
+
+  let occurenciesList: object = {};
+
+  interface predict {
+    value: Array<string>,
+    occurencies: number
+  }
+  let predict: predict = {
+    value: null,
+    occurencies: 0
+  }
+
+  // Fill the occurenciesList object with value - occurencies key - value pairs
+  recentMovies.forEach(function(movie) {
+    const values: Array<string> = movie[propertyName].split(', ');
+    values.forEach(function(value) {
+      // If value already occured before, increment the value by 1
+      if (occurenciesList[value]) {
+        occurenciesList[value] += 1;
+      } else {
+        // Otherwise add new value and set it to 1
+        occurenciesList[value] = 1;
+      }
+    })
+  })
+
+  // Iterate through occurenciesList object and select value(-s) with highes occurency rate
+  for (let value in occurenciesList) {
+    if (occurenciesList[value] > predict.occurencies) {
+      predict.value = [value];
+      predict.occurencies = occurenciesList[value];
+    } else if (occurenciesList[value] == predict.occurencies) {
+      predict.value.push(value);
+    }
+  }
+
+  return predict.value
+}
+
 // Class that is responsible for analysis of data from local storage and predicting the properties of movies
 // that user might be interested in.
 class BrainClass {
   /* Function to predict the genre of movies user is interested in
     Args: recentMovies - array of recently viewed movies
-    Output: genre name */
-  predictGenre(recentMovies: Array<Movie>): string | Array<string> {
-    let genres: object = {};
-
-    interface predict {
-      genre: string | Array<string>,
-      occurencies: number
+    Output: array of genre names */
+  predictGenre(recentMovies: Array<Movie>): Array<string> {
+    if (recentMovies.length > 0) {
+      return predict(recentMovies, 'Genre');
+    } else {
+      return;
     }
-    let predict: predict = {
-      genre: null,
-      occurencies: 0
-    }
-
-    // Fill the ganres object with genre - occurencies key - value pairs
-    recentMovies.forEach(function(movie) {
-      const movieGenres: Array<string> = movie.Genre.split(', ');
-      movieGenres.forEach(function(genre) {
-        // If genre already occured before, increment the value by 1
-        if (genres[genre]) {
-          genres[genre] += 1;
-        } else {
-          // Otherwise add new genre and set value to 1
-          genres[genre] = 1;
-        }
-      })
-    })
-
-    // Iterate through genres object and select genre(-s) with highes occurency rate
-    for (let genre in genres) {
-      if (genres[genre] > predict.occurencies) {
-        // If current genre occured more times than highest one - set current genre as highest occured
-        predict.genre = genre;
-        predict.occurencies = genres[genre];
-      } else if (genres[genre] = predict.occurencies) {
-        // If current genre occured same amout of times as highest one - add current genre to array
-        if (Array.isArray(predict.genre)) {
-          predict.genre.push(genre);
-        } else {
-          const currentGenre: string = predict.genre;
-          predict.genre = [currentGenre, genre];
-        }
-      }
-    }
-
-    return predict.genre
   }
 }
 const Brain = new BrainClass;
 const dataService = new DataService;
-Brain.predictGenre(dataService.getRecentMovies());
+console.log(Brain.predictGenre(dataService.getRecentMovies()));
 
 @Component({
   selector: 'app-home',
