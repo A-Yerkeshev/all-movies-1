@@ -89,12 +89,13 @@ class CustomizationComponent {
       localStorage.setItem('recentMoviesNum', '0');
     }
 
-    //Build an array of movies user might be interested in
     const recentMovies: Array<Movie> = dataService.getRecentMovies();
     const genre: Array<string> = Brain.predictGenre(recentMovies);
     const production: Array<string> = Brain.predictProduction(recentMovies);
 
     this.recentMovies = recentMovies;
+    console.log('Most relevant genre - ', genre);
+    console.log('Most relevant production - ', production);
   }
 
   /* Function to set current movie in data collector
