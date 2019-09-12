@@ -9,8 +9,12 @@ import $ from "jquery/dist/jquery.js";
 /* Function to add searched title to local storage
   Args: title - title of the movie user searched for */
 function addToLocalStorage(title: string): void {
-  const recentSearches: string = localStorage.getItem('searches');
-  localStorage.setItem('searches', recentSearches + ',' + title);
+  const recentSearches: Array<string> = localStorage.getItem('searches').split(',');
+  // If number of recent searches exceeds 50 - remove the oldest one
+  if (recentSearches.length > 50) {
+    recentSearches.shift();
+  }
+  localStorage.setItem('searches', recentSearches.join() + ',' + title);
 }
 
 @Component({
