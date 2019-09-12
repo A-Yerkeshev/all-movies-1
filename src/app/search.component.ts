@@ -17,6 +17,15 @@ export class SearchComponent{
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     const title: string = this.route.snapshot.queryParamMap.get('title');
 
+    // Add searched title to local storage
+    let recentSearches: string = '';
+    if (localStorage.getItem('searches')) {
+      recentSearches = localStorage.getItem('seacrhes');
+    } else {
+      localStorage.setItem('searches', '');
+    }
+    localStorage.setItem('searches', recentSearches + ',' + title);
+
     this.searchTitle = title;
     this.searchResult = dataService.searchMovie(title);
 

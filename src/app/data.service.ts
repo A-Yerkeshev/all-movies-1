@@ -207,7 +207,7 @@ class DataService {
 
     for (let i=0; i<localStorage.length; i++) {
       const title: string = localStorage.key(i);
-      if ( title !== 'recentMoviesNum') {
+      if (title != 'recentMoviesNum' && title != 'searches') {
         const movie: Movie = apiCommunicator.loadMovie(title);
         if (movie) {
           result.push(movie);
