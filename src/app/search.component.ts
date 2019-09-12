@@ -6,6 +6,13 @@ import { DataService, Movie } from './data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import $ from "jquery/dist/jquery.js";
 
+/* Function to add searched title to local storage
+  Args: title - title of the movie user searched for */
+function addToLocalStorage(title: string): void {
+  const recentSearches: string = localStorage.getItem('searches');
+  localStorage.setItem('searches', recentSearches + ',' + title);
+}
+
 @Component({
   selector: 'app-search-result',
   templateUrl: './search.html'
@@ -16,15 +23,11 @@ export class SearchComponent{
 
   constructor(private dataService: DataService, private router: Router, private route: ActivatedRoute) {
     const title: string = this.route.snapshot.queryParamMap.get('title');
-
-    // Add searched title to local storage
-    let recentSearches: string = '';
-    if (localStorage.getItem('searches')) {
-      recentSearches = localStorage.getItem('seacrhes');
-    } else {
+    // If it is the first time user uses search - initialize searches parameter in local storage
+    if (localStorage.getItem('searches') == undefined) {
       localStorage.setItem('searches', '');
     }
-    localStorage.setItem('searches', recentSearches + ',' + title);
+    addToLocalStorage(title);
 
     this.searchTitle = title;
     this.searchResult = dataService.searchMovie(title);
@@ -37,6 +40,7 @@ export class SearchComponent{
     this.router.navigate(['/search'], {queryParams: {title}});
     this.searchTitle = title;
     this.searchResult = this.dataService.searchMovie(title);
+    addToLocalStorage(title);
   }
 
   /* Function to set current movie in data collector
