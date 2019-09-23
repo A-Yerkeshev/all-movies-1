@@ -28,6 +28,27 @@ interface occurency {
   occurencies: number
 }
 
+/* Function to select most frequent value from occurencies object
+  Args: occurenciesList - object with local values as keys and their occurencies number as value
+  Output: array of most frequent keys */
+function selectMostFrequent(occurenciesList: object): Array<string> {
+  let occValue: occurency = {
+    value: null,
+    occurencies: 0
+  }
+
+  for (let value in occurenciesList) {
+    if (occurenciesList[value] > occValue.occurencies) {
+      occValue.value = [value];
+      occValue.occurencies = occurenciesList[value];
+    } else if (occurenciesList[value] == occValue.occurencies) {
+      occValue.value.push(value);
+    }
+  }
+
+  return occValue.value
+}
+
 /* Prediction function used by Brain to make predictions of genre, production and other properties of movies
   Args: recentMovies - array of recently viewed movies,
         propertyName - name of the property to predict
@@ -39,10 +60,6 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
   }
 
   let occurenciesList: object = {};
-  let predict: occurency = {
-    value: null,
-    occurencies: 0
-  }
 
   // Fill the occurenciesList object with value - occurencies key - value pairs
   recentMovies.forEach(function(movie) {
@@ -51,17 +68,7 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
     fillOccurenciesObject(occurenciesList, values);
   })
 
-  // Iterate through occurenciesList object and select value(-s) with highes occurency rate
-  for (let value in occurenciesList) {
-    if (occurenciesList[value] > predict.occurencies) {
-      predict.value = [value];
-      predict.occurencies = occurenciesList[value];
-    } else if (occurenciesList[value] == predict.occurencies) {
-      predict.value.push(value);
-    }
-  }
-
-  return predict.value
+  return selectMostFrequent(occurenciesList);
 }
 
 // Class that is responsible for analysis of data from local storage and predicting the properties of movies
@@ -81,28 +88,17 @@ class BrainClass {
   }
   /* Function to find most searched by user movie title
     Output: most popular title(-s) user searches for */
-  getMostSearchedTitle(): string {
+  getMostSearchedTitle(): Array<string> {
     if (localStorage.getItem('searches') == undefined) {
       return;
     }
-    const searches: Array<string> = localStorage.getItem('searches').split(',');
 
+    const searches: Array<string> = localStorage.getItem('searches').split(',');
     let titles: object = {};
-    let search: occurency = {
-      value: null,
-      occurencies: 0
-    }
 
     fillOccurenciesObject(titles, searches);
 
-    for (let title in titles) {
-      if (titles[title] > search.occurencies) {
-        search.value = [title];
-        search.occurencies = titles[title];
-      } else if (titles[title] == search.occurencies) {
-        search.value.push(title);
-      }
-    }
+    return selectMostFrequent(titles);
   }
 }
 
@@ -132,7 +128,7 @@ class CustomizationComponent {
     console.log('Most relevant genre - ', genre);
     console.log('Most relevant production - ', production);
 
-    Brain.getMostSearchedTitle();
+    console.log(Brain.getMostSearchedTitle());
   }
 
   /* Function to set current movie in data collector
