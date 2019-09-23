@@ -177,7 +177,7 @@ class DataService {
       }
     }
   }
-  /* Function that recieves searched movie title from Controller Component, makes corresponding
+  /* Function that recieves searched movie title from Component, makes corresponding
       AJAX request through API Communicator and returns movies found
     Args: title - title of the movie user searches for */
   searchMovie(title: string): Array<Movie> {

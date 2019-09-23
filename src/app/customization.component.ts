@@ -90,7 +90,7 @@ class BrainClass {
     Output: most popular title(-s) user searches for */
   getMostSearchedTitle(): Array<string> {
     if (localStorage.getItem('searches') == undefined) {
-      return;
+      return [];
     }
 
     const searches: Array<string> = localStorage.getItem('searches').split(',');
@@ -121,14 +121,24 @@ class CustomizationComponent {
     }
 
     const recentMovies: Array<Movie> = dataService.getRecentMovies();
-    const genre: Array<string> = Brain.predictGenre(recentMovies);
-    const production: Array<string> = Brain.predictProduction(recentMovies);
+    if (recentMovies.length > 0) {
+      const genre: Array<string> = Brain.predictGenre(recentMovies);
+      const production: Array<string> = Brain.predictProduction(recentMovies);
+      this.recentMovies = recentMovies;
+      console.log('Most relevant genre - ', genre);
+      console.log('Most relevant production - ', production);
+    }
 
-    this.recentMovies = recentMovies;
-    console.log('Most relevant genre - ', genre);
-    console.log('Most relevant production - ', production);
+    const titles: Array<string> = Brain.getMostSearchedTitle();
+    if (titles.length > 0) {
+      let result: Array<Movie> = [];
+      titles.forEach(function(title) {
+        const movies: Array<Movie> = dataService.searchMovie(title);
+        result = result.concat(movies);
+      })
+      this.relevantMovies = result;
+    }
 
-    console.log(Brain.getMostSearchedTitle());
   }
 
   /* Function to set current movie in data collector

@@ -1,5 +1,16 @@
 <div class="container d-inline m-0 p-0">
-  <div class="row border-bottom" *ngIf="recentMovies.lenght > 0">
+  <div class="row border-bottom" *ngIf="relevantMovies">
+    <h2 class="col-12 ml-3 mt-1 pr-0 d-inline-block">Recommended for you</h2>
+  </div>
+  <div class="row pl-5 flex-nowrap overflow-auto">
+    <a class="card col-4 col-sm-3 col-md-2 p-0 m-1" *ngFor="let movie of relevantMovies" routerLink="/{{movie.imdbID}}" routerLinkActive="active" (click)=setCurrentMovie(movie)>
+      <img src={{movie.Poster}} class="card-img">
+      <div class="card-body p-0 pt-1 border border-secondary">
+        <h5 class="card-title text-center text-dark">{{movie.Title}}</h5>
+      </div>
+    </a>
+  </div>
+  <div class="row border-bottom" *ngIf="recentMovies">
     <h2 class="col-12 ml-3 mt-1 pr-0 d-inline-block">Recently viewed</h2>
   </div>
   <div class="row pl-5 flex-nowrap overflow-auto">
