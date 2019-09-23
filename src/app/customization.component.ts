@@ -4,6 +4,30 @@ keeps track of user's preferences through usage of local storage of the browser.
 import { Component } from '@angular/core';
 import { DataService, Movie } from './data.service';
 
+/* Function that builds an object where keys are the values of local storage and values are numbers of their occurencies
+    in local storage. Example: {movieTitle1: 1, movieTitle2: 4, movieTitle3: 2}
+  Args: occurenciesList - object with local values as keys and their occurencies number as value
+        localValues - array of string values from local storage to make count on */
+function fillOccurenciesObject(occurenciesList: object, localValues: Array<string>): void {
+  localValues.forEach(function(value) {
+    if (value != 'N/A' && value != '') {
+      // If value already occured before, increment the value by 1
+      if (occurenciesList[value]) {
+        occurenciesList[value] += 1;
+      } else {
+        // Otherwise add new value and set it to 1
+        occurenciesList[value] = 1;
+      }
+    }
+  })
+}
+
+// Interface to keep track of number of occuriencies of value in local storage
+interface occurency {
+  value: Array<string>,
+  occurencies: number
+}
+
 /* Prediction function used by Brain to make predictions of genre, production and other properties of movies
   Args: recentMovies - array of recently viewed movies,
         propertyName - name of the property to predict
@@ -15,12 +39,7 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
   }
 
   let occurenciesList: object = {};
-
-  interface predict {
-    value: Array<string>,
-    occurencies: number
-  }
-  let predict: predict = {
+  let predict: occurency = {
     value: null,
     occurencies: 0
   }
@@ -28,17 +47,8 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
   // Fill the occurenciesList object with value - occurencies key - value pairs
   recentMovies.forEach(function(movie) {
     const values: Array<string> = movie[propertyName].split(', ');
-    values.forEach(function(value) {
-      if (value != 'N/A') {
-        // If value already occured before, increment the value by 1
-        if (occurenciesList[value]) {
-          occurenciesList[value] += 1;
-        } else {
-          // Otherwise add new value and set it to 1
-          occurenciesList[value] = 1;
-        }
-      }
-    })
+
+    fillOccurenciesObject(occurenciesList, values);
   })
 
   // Iterate through occurenciesList object and select value(-s) with highes occurency rate
@@ -69,6 +79,31 @@ class BrainClass {
   predictProduction(recentMovies: Array<Movie>): Array<string> {
     return predict(recentMovies, 'Production');
   }
+  /* Function to find most searched by user movie title
+    Output: most popular title(-s) user searches for */
+  getMostSearchedTitle(): string {
+    if (localStorage.getItem('searches') == undefined) {
+      return;
+    }
+    const searches: Array<string> = localStorage.getItem('searches').split(',');
+
+    let titles: object = {};
+    let search: occurency = {
+      value: null,
+      occurencies: 0
+    }
+
+    fillOccurenciesObject(titles, searches);
+
+    for (let title in titles) {
+      if (titles[title] > search.occurencies) {
+        search.value = [title];
+        search.occurencies = titles[title];
+      } else if (titles[title] == search.occurencies) {
+        search.value.push(title);
+      }
+    }
+  }
 }
 
 @Component({
@@ -96,6 +131,8 @@ class CustomizationComponent {
     this.recentMovies = recentMovies;
     console.log('Most relevant genre - ', genre);
     console.log('Most relevant production - ', production);
+
+    Brain.getMostSearchedTitle();
   }
 
   /* Function to set current movie in data collector
