@@ -216,6 +216,20 @@ class DataService {
     }
     return result;
   }
+  /* Function to load relevant movies
+    Args: titles - array of titles to make search
+    Output: array of movies corresponding to search titles */
+  loadRelevantMovies(titles: Array<string>): Array<Movie> {
+    let result: Array<Movie> = [];
+    const dataService = this;
+    titles.forEach(function(title) {
+      const movies: Array<Movie> = dataService.searchMovie(title);
+      movies.forEach(function(movie) {
+        result.push(apiCommunicator.loadMovie(movie.Title));
+      })
+    })
+    return result;
+  }
 }
 
 export { DataService, MovieTitlesList, Movie, MovieSearch, movieGuard, movieSearchGuard }

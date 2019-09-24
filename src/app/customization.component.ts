@@ -130,15 +130,7 @@ class CustomizationComponent {
     }
 
     const titles: Array<string> = Brain.getMostSearchedTitle();
-    if (titles.length > 0) {
-      let result: Array<Movie> = [];
-      titles.forEach(function(title) {
-        const movies: Array<Movie> = dataService.searchMovie(title);
-        result = result.concat(movies);
-      })
-      this.relevantMovies = result;
-    }
-
+    this.relevantMovies = dataService.loadRelevantMovies(titles);
   }
 
   /* Function to set current movie in data collector
