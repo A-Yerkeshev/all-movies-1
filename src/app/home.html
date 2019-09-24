@@ -4,7 +4,7 @@
   </div>
   <div class="row pl-5 flex-nowrap overflow-auto">
     <a class="card col-4 col-sm-3 col-md-2 p-0 m-1" *ngFor="let movie of relevantMovies" routerLink="/{{movie.imdbID}}" routerLinkActive="active" (click)=setCurrentMovie(movie)>
-      <img src={{movie.Poster}} class="card-img">
+      <img src={{movie.Poster}} class="card-img" (error)="this.movie.Poster = 'assets/no-poster.png'">
       <div class="card-body p-0 pt-1 border border-secondary">
         <h5 class="card-title text-center text-dark">{{movie.Title}}</h5>
       </div>
@@ -19,7 +19,7 @@
   </div>
   <div class="row pl-5 flex-nowrap overflow-auto">
     <a class="card col-4 col-sm-3 col-md-2 p-0 m-1" *ngFor="let movie of recentMovies" routerLink="/{{movie.imdbID}}" routerLinkActive="active" (click)=setCurrentMovie(movie)>
-      <img src={{movie.Poster}} class="card-img">
+      <img src={{movie.Poster}} class="card-img" (error)="this.movie.Poster = 'assets/no-poster.png'">
       <div class="card-body p-0 pt-1 border border-secondary">
         <h5 class="card-title text-center text-dark">{{movie.Title}}</h5>
       </div>
