@@ -32,3 +32,7 @@ a:hover {
 .search-area {
   height: min-content;
 }
+
+.details-poster {
+  height: max-content;
+}
