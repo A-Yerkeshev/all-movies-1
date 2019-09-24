@@ -109,6 +109,8 @@ class BrainClass {
 class CustomizationComponent {
   recentMovies: Array<Movie>;
   relevantMovies: Array<Movie>;
+  prefferedGenre: string;
+  prefferedProduction: string;
 
   constructor(private dataService: DataService) {
     const Brain = new BrainClass;
@@ -122,11 +124,11 @@ class CustomizationComponent {
 
     const recentMovies: Array<Movie> = dataService.getRecentMovies();
     if (recentMovies.length > 0) {
-      const genre: Array<string> = Brain.predictGenre(recentMovies);
-      const production: Array<string> = Brain.predictProduction(recentMovies);
+      const genre: string = Brain.predictGenre(recentMovies).join(', ');
+      const production: string = Brain.predictProduction(recentMovies).join(', ');
       this.recentMovies = recentMovies;
-      console.log('Most relevant genre - ', genre);
-      console.log('Most relevant production - ', production);
+      this.prefferedGenre = genre;
+      this.prefferedProduction = production;
     }
 
     const titles: Array<string> = Brain.getMostSearchedTitle();
