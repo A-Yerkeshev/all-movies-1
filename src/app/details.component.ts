@@ -2,14 +2,14 @@
   the data from Data Service and interacts with user through movie.html template */
 
 import { Component } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService, Movie } from './data.service';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './details.html'
 })
 class DetailsComponent{
-  movie: object;
+  movie: Movie;
   constructor(dataService: DataService) {
     this.movie = dataService.currentMovie;
   }

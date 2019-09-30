@@ -120,10 +120,10 @@ function addToLocalStorage(title: string): void {
 })
 class DataService {
   totalDefaultMovies: number;
-  currentMovie: object;
-  movies: Array<object>;
+  currentMovie: Movie;
+  movies: Array<Movie>;
   constructor() {
-    let movies: Array<object> = [];
+    let movies: Array<Movie> = [];
     // Allocate space in movies array. As new movies will be loaded they will be placed
     // in array according to their index in movies.json
     for (let i=0; i<=this.totalMovies(); i++) {
