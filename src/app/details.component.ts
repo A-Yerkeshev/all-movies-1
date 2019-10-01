@@ -10,8 +10,14 @@ import { DataService, Movie } from './data.service';
 })
 class DetailsComponent{
   movie: Movie;
+  data: Array<Array<any>>;
   constructor(dataService: DataService) {
+    this.data = [];
     this.movie = dataService.currentMovie;
+
+    for (let property in this.movie) {
+      this.data.push([property, this.movie[property]]);
+    }
   }
 
   /* Function that tells whether key-value pair of a movie object is valid to display it on the page

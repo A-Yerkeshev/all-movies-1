@@ -10,10 +10,10 @@
           <div class="col p-0">
             <table class="table table-striped">
               <tbody>
-                <tr class="mx-1" *ngFor="let property of movie | keyvalue">
-                  <th scope="row"></th>
-                  <td *ngIf="isValidForDisplay(property.value)">{{property.key}}</td>
-                  <td class="text-break" *ngIf="isValidForDisplay(property.value)">{{property.value}}</td>
+                <tr class="mx-1" *ngFor="let value of data">
+                  <th scope="row" *ngIf="isValidForDisplay(value[1])"></th>
+                  <td *ngIf="isValidForDisplay(value[1])">{{value[0]}}</td>
+                  <td class="text-break" *ngIf="isValidForDisplay(value[1])">{{value[1]}}</td>
                 </tr>
               </tbody>
             </table>
