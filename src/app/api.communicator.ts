@@ -15,7 +15,7 @@ import $ from "jquery/dist/jquery.js";
     array of matched movies the syntax is: loadMovie(title, true).Search */
 const loadMovie: (arg1: string, arg2?: boolean)=> Movie|MovieSearch =
   function(title: string, search: boolean = false): Movie|MovieSearch {
-    let url: string = 'http://www.omdbapi.com/?apikey=f17da8f8&';
+    let url: string = 'https://www.omdbapi.com/?apikey=f17da8f8&';
     let result: Movie|MovieSearch;
 
     if (search === true) {
