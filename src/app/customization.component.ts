@@ -93,7 +93,7 @@ class BrainClass {
       return [];
     }
 
-    const searches: Array<string> = localStorage.getItem('searches').split(',');
+    const searches: Array<string> = localStorage.getItem('searches').split(',').reverse();
     let titles: object = {};
 
     fillOccurenciesObject(titles, searches);
