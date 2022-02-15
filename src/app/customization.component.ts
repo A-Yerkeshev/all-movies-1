@@ -54,7 +54,7 @@ function selectMostFrequent(occurenciesList: object): Array<string> {
         propertyName - name of the property to predict
   Output: array of the values with highest occurency rate for specified property*/
 function predict(recentMovies: Array<Movie>, propertyName: string): Array<string> {
-  // Forst check if provided property name is valid and recentMovies array is not empty
+  // First check if provided property name is valid and recentMovies array is not empty
   if (recentMovies.length == 0 || recentMovies[0][propertyName] == undefined) {
     return;
   }
@@ -68,7 +68,12 @@ function predict(recentMovies: Array<Movie>, propertyName: string): Array<string
     fillOccurenciesObject(occurenciesList, values);
   })
 
-  return selectMostFrequent(occurenciesList);
+  const mostFreq = selectMostFrequent(occurenciesList)
+  if (mostFreq == null) {
+    return [];
+  } else {
+    return selectMostFrequent(occurenciesList);
+  }
 }
 
 // Class that is responsible for analysis of data from local storage and predicting the properties of movies
